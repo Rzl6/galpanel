@@ -28,6 +28,9 @@
 - Run #2（ID `30197411201`）未进入 ZMK 编译，GitHub Runner 在初始化容器时多次出现 `Docker pull failed with exit code 1`；
 - 后续 `ContainerId` 为空是容器创建失败的连带错误，不是 Kconfig、Devicetree 或 GALPANEL 源码错误；
 - 采用新增一次可追溯提交的方式重新触发干净构建，不修改固件行为。
+- Run #3（ID `30197484437`）构建成功，总耗时 3 分 33 秒，证明固定 ZMK revision 后可以重复构建；
+- Run #3 最终 ZIP SHA-256 为 `edb08c7919bb8f04c1da92461d07cf54e0e7e5ef6418b821eb3b00bc1e33c0a4`；
+- Run #3 的 `galpanel.uf2` 与第一次刷入文件 SHA-256 完全一致，因此没有重复刷写开发板。
 
 ### 为什么这么做
 
@@ -46,6 +49,7 @@
 ### 本次验证
 
 - GitHub Actions：<https://github.com/Rzl6/galpanel/actions/runs/30197044810>，结论 `Success`；
+- 固定版本复验：<https://github.com/Rzl6/galpanel/actions/runs/30197484437>，结论 `Success`；
 - 源提交：`3bb605e515a98756e3b3c968b7e4dd3dfb4592be`；
 - `firmware-run-1.zip` SHA-256：`ee6b3bb7e22da461ac8674a448fc7acc3cd77c35aee1731773e1ed0be466aead`；
 - `galpanel.uf2` 大小：412160 bytes；
