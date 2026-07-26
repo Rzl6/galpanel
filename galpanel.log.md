@@ -6,6 +6,52 @@
 
 ---
 
+## 2026-07-26 - 复刷并诊断左机械键无可见输出
+
+### 本次完成
+
+- 收到“按住左侧机械键没有反应”的实物反馈；
+- 核对设备树：左机械键为扫描序号 0，连接 `D2/P0.17`，使用 `GPIO_ACTIVE_LOW | GPIO_PULL_UP`；
+- 核对 keymap：基础层绑定 `LCTRL`，Fn 层绑定 `S`，扫描顺序与 keymap 顺序一致；
+- 确认用户已重新进入 `NICENANO` Bootloader，Board-ID 仍为 `nRF52840-nicenano`；
+- 重新刷入 Run #3 的 `galpanel.uf2`，SHA-256 为 `6805b40de4d7214abe371d7dc0138b99bb5ab18e32165ed1b43dc92ed017f5e4`；
+- 确认复制后 `NICENANO` 自动消失，`GALPANEL` 的 Keyboard、Consumer Control 和 Mouse HID 再次正常枚举；
+- 运行 20 秒 Windows 左 Ctrl 状态探测，本次未捕获到按下事件；由于不能确认实物是否在探测窗口内按下，该结果暂不作为硬件故障结论。
+
+### 为什么这么做
+
+Ctrl 是修饰键，单独按下不会像字母键一样在记事本显示字符。先核对扫描引脚、逻辑顺序和 HID 绑定，再复刷已知正确的 UF2，可以避免把正常的 Ctrl 行为误判成烧录失败。
+
+Fn 层把同一个 D2 映射为 `S`，因此它可以在不修改固件的情况下区分“Ctrl 没有可见字符”和“D2 电气链路没有被扫描到”。
+
+### 对后续的好处
+
+- 建立了修饰键的正确测试方法；
+- 排除了 UF2 文件损坏、错误 Board-ID 和 USB 枚举失败；
+- 如果 Fn+左键仍无输出，可以直接进入 D2 专用诊断固件或万用表通断检查，不必重复怀疑整个 ZMK 工程。
+
+### 本次验证
+
+- `NICENANO`：刷写后自动消失；
+- USB Bus Reported Device Description：`GALPANEL`；
+- VID/PID：`1D50:615E`；
+- Keyboard、Consumer Control、Mouse 接口状态均为 `OK`；
+- 项目 Git 状态在修改前与 `origin/main` 同步。
+
+### 尚未完成
+
+- 请用户按一次右下 Fn 侧键，再按左机械键，观察是否输入 `s`；
+- 请用户使用 Windows 屏幕键盘观察左 Ctrl 是否高亮；
+- 若两项均失败，下一步生成 D2 可见字符诊断固件，并检查 D2 到 GND 的硬件通断。
+
+### 计划提交
+
+```text
+docs: record left key reflash diagnosis [skip ci]
+```
+
+---
+
 ## 2026-07-26 - 同步 GitHub、首次云端构建并刷入 GALPANEL
 
 ### 本次完成
