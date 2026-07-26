@@ -5,10 +5,9 @@ manifest:
   projects:
     - name: zmk
       remote: zmkfirmware
-      # First get the custom board building successfully, then pin this to a
-      # tested commit so future upstream changes cannot silently break it.
-      revision: main
+      # Verified by GitHub Actions run 30197044810 and the first successful
+      # UF2 flash on 2026-07-26. Pinning makes future builds reproducible.
+      revision: f84ef436cd8e88f9d1580a9b86bab2fae8d349c6
       import: app/west.yml
   self:
     path: config
-

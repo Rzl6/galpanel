@@ -6,6 +6,65 @@
 
 ---
 
+## 2026-07-26 - 同步 GitHub、首次云端构建并刷入 GALPANEL
+
+### 本次完成
+
+- 将本地 `main` 安全推送到空仓库 `https://github.com/Rzl6/galpanel`，并设置为跟踪 `origin/main`；
+- 阅读 ProMicro NRF52840 商品资料，确认兼容 nice!nano、双击 RST 进入 `NICENANO` 和 UF2 拖拽烧录路线；
+- 监控 GitHub Actions Run #1（ID `30197044810`），构建目标为 `nice_nano//zmk + galpanel`；
+- 确认 West、Kconfig、Devicetree、ZMK 编译和产物归档全部成功，总耗时 4 分 21 秒；
+- 下载最终 `firmware` 产物，并用 GitHub 页面公布的 SHA-256 校验 ZIP；
+- 解压并验证 `galpanel.uf2` 的文件名、大小、SHA-256 和 UF2 魔数；
+- 刷写前再次确认 E 盘卷标为 `NICENANO`、类型为可移动磁盘、Board-ID 为 `nRF52840-nicenano`；
+- 备份原 `CURRENT.UF2` 后，将 `galpanel.uf2` 复制到开发板；
+- 确认复制后 `NICENANO` 自动消失，Windows 枚举名为 `GALPANEL` 的复合 HID；
+- 确认设备同时提供 Keyboard、Consumer Control 和 Mouse HID 接口；
+- 将 ZMK 上游固定到已验证提交 `f84ef436cd8e88f9d1580a9b86bab2fae8d349c6`；
+- 将商品页官方引脚图 `PCB/ProMicroNRF52840Foot.jpg` 纳入项目资料。
+
+### 为什么这么做
+
+首次刷写最重要的是建立可追溯链路：仓库提交、云端构建、产物摘要、Bootloader Board-ID 和实物设备必须一一对应。仅凭文件名相似就刷写，无法排除下载错误或板型错误。
+
+第一次成功构建后固定 ZMK revision，是为了让相同配置以后仍使用同一套上游源码，避免 `main` 更新导致行为变化或突然无法编译。
+
+### 对后续的好处
+
+- 已建立从 `git push` 到 GitHub Actions、UF2、实物启动和 Windows HID 的完整闭环；
+- 后续修改只需比较新提交和新固件，不再怀疑基础工具链是否可用；
+- 原始 `CURRENT.UF2` 已备份，保留额外恢复与分析材料；
+- Keyboard、Consumer Control 和 Mouse 三个 USB 接口均存在，后续可分别测试按键、媒体键和滚轮；
+- 固定上游提交后，后续构建具有更好的可重复性。
+
+### 本次验证
+
+- GitHub Actions：<https://github.com/Rzl6/galpanel/actions/runs/30197044810>，结论 `Success`；
+- 源提交：`3bb605e515a98756e3b3c968b7e4dd3dfb4592be`；
+- `firmware-run-1.zip` SHA-256：`ee6b3bb7e22da461ac8674a448fc7acc3cd77c35aee1731773e1ed0be466aead`；
+- `galpanel.uf2` 大小：412160 bytes；
+- `galpanel.uf2` SHA-256：`6805b40de4d7214abe371d7dc0138b99bb5ab18e32165ed1b43dc92ed017f5e4`；
+- 原 `CURRENT.UF2` 备份 SHA-256：`9d2ac4f29706e9bee83a9ea772e2eb658f4025eb5e2d3823e1242cbaceb44fdb`；
+- USB Bus Reported Device Description：`GALPANEL`；
+- USB VID/PID：`1D50:615E`；
+- 复制后 `NICENANO` 自动消失，Keyboard/Consumer Control/Mouse 均为正常状态。
+
+### 尚未完成
+
+- 需要用户实按 D2、D3、D4、D19，确认 Ctrl、A、Enter、Esc；
+- 需要实测 EC11 方向、每格触发数和快速旋转；
+- 需要快速双击 RST，确认能稳定重新进入 `NICENANO`；
+- 四颗侧键、Fn 层、SYS、BLE 和 LED 尚未进行实物功能测试；
+- 固定 ZMK revision 后需要由下一次 Actions 构建再次确认可重复编译。
+
+### 计划提交
+
+```text
+docs: record first GALPANEL firmware flash
+```
+
+---
+
 ## 2026-07-26 - 识别实物 Bootloader 并扩展学习教程
 
 ### 本次完成
