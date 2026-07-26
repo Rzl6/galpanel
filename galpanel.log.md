@@ -23,6 +23,12 @@
 - 将 ZMK 上游固定到已验证提交 `f84ef436cd8e88f9d1580a9b86bab2fae8d349c6`；
 - 将商品页官方引脚图 `PCB/ProMicroNRF52840Foot.jpg` 纳入项目资料。
 
+### 固定版本后的构建重试
+
+- Run #2（ID `30197411201`）未进入 ZMK 编译，GitHub Runner 在初始化容器时多次出现 `Docker pull failed with exit code 1`；
+- 后续 `ContainerId` 为空是容器创建失败的连带错误，不是 Kconfig、Devicetree 或 GALPANEL 源码错误；
+- 采用新增一次可追溯提交的方式重新触发干净构建，不修改固件行为。
+
 ### 为什么这么做
 
 首次刷写最重要的是建立可追溯链路：仓库提交、云端构建、产物摘要、Bootloader Board-ID 和实物设备必须一一对应。仅凭文件名相似就刷写，无法排除下载错误或板型错误。
