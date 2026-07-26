@@ -1,0 +1,14 @@
+manifest:
+  remotes:
+    - name: zmkfirmware
+      url-base: https://github.com/zmkfirmware
+  projects:
+    - name: zmk
+      remote: zmkfirmware
+      # First get the custom board building successfully, then pin this to a
+      # tested commit so future upstream changes cannot silently break it.
+      revision: main
+      import: app/west.yml
+  self:
+    path: config
+

@@ -1,0 +1,32 @@
+/*
+ * Copyright (c) 2026 GALPANEL contributors
+ * SPDX-License-Identifier: MIT
+ */
+
+#include <physical_layouts.dtsi>
+
+/ {
+    galpanel_physical_layout: galpanel_physical_layout {
+        compatible = "zmk,physical-layout";
+        display-name = "GALPANEL V2.1";
+        transform = <&galpanel_transform>;
+
+        /*
+         * Logical order matches kscan input-gpios and the keymap:
+         * FAST, AUTO, NEXT, QSAVE, DESKTOP, SYS, FN, QLOAD, ENC_SW.
+         * Coordinates are documentation/UI hints rather than PCB dimensions.
+         */
+        keys
+            = <&key_physical_attrs 100 100   0 200 0 0 0>
+            , <&key_physical_attrs 100 100 100 200 0 0 0>
+            , <&key_physical_attrs 100 100 200 200 0 0 0>
+            , <&key_physical_attrs 100 100 300   0 0 0 0>
+            , <&key_physical_attrs 100 100   0 100 0 0 0>
+            , <&key_physical_attrs 100 100 100   0 0 0 0>
+            , <&key_physical_attrs 100 100 300 100 0 0 0>
+            , <&key_physical_attrs 100 100   0   0 0 0 0>
+            , <&key_physical_attrs 100 100 200 100 0 0 0>
+            ;
+    };
+};
+

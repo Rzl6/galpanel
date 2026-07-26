@@ -1,0 +1,10 @@
+# Copyright (c) 2026 GALPANEL contributors
+# SPDX-License-Identifier: MIT
+
+if SHIELD_GALPANEL
+
+config ZMK_KEYBOARD_NAME
+  default "GALPANEL"
+
+endif # SHIELD_GALPANEL
+

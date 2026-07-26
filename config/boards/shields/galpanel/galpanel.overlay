@@ -1,0 +1,107 @@
+/*
+ * GALPANEL V2.1 hardware description
+ *
+ * Copyright (c) 2026 GALPANEL contributors
+ * SPDX-License-Identifier: MIT
+ */
+
+#include <dt-bindings/zmk/matrix_transform.h>
+#include "galpanel-layouts.dtsi"
+
+/ {
+    chosen {
+        zmk,kscan = &galpanel_kscan;
+        zmk,physical-layout = &galpanel_physical_layout;
+    };
+
+    galpanel_transform: galpanel_transform {
+        compatible = "zmk,matrix-transform";
+        rows = <1>;
+        columns = <9>;
+        map = <
+            RC(0,0) RC(0,1) RC(0,2)
+            RC(0,3) RC(0,4) RC(0,5)
+            RC(0,6) RC(0,7) RC(0,8)
+        >;
+    };
+
+    galpanel_kscan: galpanel_kscan {
+        compatible = "zmk,kscan-gpio-direct";
+        wakeup-source;
+        debounce-press-ms = <5>;
+        debounce-release-ms = <5>;
+
+        /*
+         * 0 D2  KEY_FAST
+         * 1 D3  KEY_AUTO
+         * 2 D4  KEY_NEXT
+         * 3 D5  KEY_QSAVE
+         * 4 D7  KEY_DESKTOP
+         * 5 D8  KEY_SYS
+         * 6 D14 KEY_FN
+         * 7 D18 KEY_QLOAD
+         * 8 D19 ENC_SW
+         */
+        input-gpios
+            = <&pro_micro  2 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
+            , <&pro_micro  3 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
+            , <&pro_micro  4 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
+            , <&pro_micro  5 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
+            , <&pro_micro  7 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
+            , <&pro_micro  8 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
+            , <&pro_micro 14 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
+            , <&pro_micro 18 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
+            , <&pro_micro 19 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
+            ;
+    };
+
+    galpanel_encoder: galpanel_encoder {
+        compatible = "alps,ec11";
+        a-gpios = <&pro_micro 21 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+        b-gpios = <&pro_micro 20 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+        /* 20-pulse EC11: four quadrature edges per pulse. */
+        steps = <80>;
+        status = "okay";
+    };
+
+    sensors: sensors {
+        compatible = "zmk,keymap-sensors";
+        sensors = <&galpanel_encoder>;
+        triggers-per-rotation = <20>;
+    };
+
+    /*
+     * These nodes document the V2.1 LED GPIOs. The first software milestone
+     * does not yet drive status animations; a later event-listener module will.
+     * The physical R_LED_EN and LED_GND common disconnect remain hardware-only.
+     */
+    galpanel_leds: galpanel_leds {
+        compatible = "gpio-leds";
+
+        led_link: led_link {
+            gpios = <&pro_micro 6 GPIO_ACTIVE_HIGH>;
+            label = "GALPANEL LINK";
+        };
+
+        led_info: led_info {
+            gpios = <&pro_micro 9 GPIO_ACTIVE_HIGH>;
+            label = "GALPANEL INFO";
+        };
+
+        led_fn: led_fn {
+            gpios = <&pro_micro 15 GPIO_ACTIVE_HIGH>;
+            label = "GALPANEL FN";
+        };
+
+        led_warn: led_warn {
+            gpios = <&pro_micro 1 GPIO_ACTIVE_HIGH>;
+            label = "GALPANEL WARN";
+        };
+
+        led_aux: led_aux {
+            gpios = <&pro_micro 0 GPIO_ACTIVE_HIGH>;
+            label = "GALPANEL AUX DNP";
+        };
+    };
+};
+

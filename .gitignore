@@ -1,0 +1,31 @@
+# ZMK / Zephyr build outputs
+/build/
+/artifacts/
+/firmware/
+*.uf2
+*.elf
+*.map
+
+# Local toolchains and temporary files
+/.west/
+/.venv/
+/.cache/
+/tmp/
+/modules/
+/tools/
+/zephyr/
+/bootloader/
+/zmk/
+
+# Editors and operating systems
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.swp
+*.tmp
+
+# Vendor installers are large and reproducible from the official source.
+# Keep the PDFs, bootloader images and small metadata files in Git.
+SuperMini NRF52840 资料20230808/**/*.exe
+SuperMini NRF52840 资料20230808/**/*.tar.gz

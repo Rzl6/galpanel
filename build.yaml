@@ -1,0 +1,5 @@
+include:
+  - board: nice_nano//zmk
+    shield: galpanel
+    artifact-name: galpanel
+
