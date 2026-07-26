@@ -6,6 +6,48 @@
 
 ---
 
+## 2026-07-26 - Windows BLE 配对与无线 Ctrl 验证通过
+
+### 本次完成
+
+- Windows 成功搜索到并配对 `GALPANEL`；
+- 用户确认 D2/P0.17 对应的左 Ctrl 在 BLE 模式下可以正常使用；
+- 将 M3 的 B0 广播/配对和 B1 BLE 输入标记为通过；
+- 更新教程，明确当前烧录的是同一份 USB + BLE 双模 ZMK 固件，而不是两份独立固件。
+
+### 为什么这么做
+
+“显示已配对”只能证明控制链路建立，实际 Ctrl 成功才证明 BLE HID 报告从 GPIO 扫描、ZMK 行为层、蓝牙协议栈一直到 Windows 输入系统的完整数据通路正常。
+
+### 对后续的好处
+
+- nRF52840、Bootloader、ZMK BLE 和 Windows 主机兼容性得到实物证明；
+- USB 与 BLE 已能复用同一套 keymap；
+- 后续蓝牙问题可以集中在重连、Profile、输出路由和 RF 环境，而不再怀疑基本 BLE HID 能力。
+
+### 本次验证
+
+- Windows 发现设备名：`GALPANEL`；
+- 首次配对：通过；
+- BLE 左 Ctrl：通过；
+- D2/P0.17：USB 与 BLE 两条输出路径均通过。
+
+### 尚未完成
+
+- 断电再上电后的自动重连；
+- D8/SYS 单击切换 BLE Profile；
+- D8/SYS 双击切换 USB/BLE 输出；
+- Windows 与手机两个主机之间的 Profile 切换；
+- 载板焊接后的天线和装壳 RF 测试。
+
+### 计划提交
+
+```text
+docs: record successful BLE input test [skip ci]
+```
+
+---
+
 ## 2026-07-26 - 确认 D2 Ctrl 成功并规划裸板 BLE 阶段
 
 ### 本次完成
