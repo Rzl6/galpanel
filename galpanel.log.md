@@ -6,6 +6,59 @@
 
 ---
 
+## 2026-07-26 - 识别实物 Bootloader 并扩展学习教程
+
+### 本次完成
+
+- 在开发板通电连接电脑后，读取 Windows 可移动磁盘列表；
+- 识别到开发板挂载为 `E:\`，卷标为 `NICENANO`，FAT 文件系统，容量约 32 MB；
+- 只读检查 `CURRENT.UF2`、`INDEX.HTM` 和 `INFO_UF2.TXT`；
+- 确认实物为 nice!nano 兼容 UF2 Bootloader：
+  - UF2 Bootloader 0.6.0；
+  - Board-ID `nRF52840-nicenano`；
+  - SoftDevice S140 6.1.1；
+  - Bootloader 日期 2021-06-19；
+- 未向开发板写入任何文件，保留当前可恢复状态；
+- 将 `学习日志.md` 扩展为从 Windows 环境、Git、uv/ZMK CLI、首次连接开发板、GitHub 云端构建到首次 UF2 刷写的连续教程和实操手册；
+- 在 `项目认知.md` 中加入实物 Bootloader 识别结论。
+
+### 为什么这么做
+
+此前 `nice_nano//zmk` 是依据商品资料和 Bootloader 文件做出的合理选择。实物 `INFO_UF2.TXT` 现在提供了直接证据，可以在刷写前确认 Board target 方向正确。
+
+用户需要的是能跟着执行的教程，而不只是概念对照。因此学习日志必须从环境检查和真实设备现象开始，每一步同时说明命令、预期输出、风险和测试记录方法。
+
+### 对后续的好处
+
+- 首次编译可以继续使用 `nice_nano//zmk`，不需要先创建自定义主控板定义；
+- 已确认 USB 数据和 Bootloader 基本正常，首次刷写的变量更少；
+- 即使后续应用固件出错，仍有明确的 UF2 和 SWD 恢复路线；
+- 用户可以按章节实操，不需要一次理解完整 Zephyr 工具链；
+- 后续每次出现新现象，都能直接补充到对应教程章节和测试表格。
+
+### 本次验证
+
+- `Get-Volume` 显示 `E: NICENANO FAT Removable Healthy`；
+- `INFO_UF2.TXT` 可正常读取；
+- Bootloader Model 和 Board-ID 均指向 nice!nano/nRF52840；
+- 项目文档中的 Board target 与实物信息一致。
+
+### 尚未完成
+
+- 需要用户创建或提供 GitHub 空仓库地址；
+- 尚未触发第一次 GitHub Actions 构建；
+- 尚未生成或刷入 `galpanel.uf2`；
+- 需要继续测试拔插行为和双击 RST 重新进入 UF2；
+- 当前直接进入 U 盘可能是因为没有有效应用固件，刷入 ZMK 后需确认能自动启动应用。
+
+### 计划提交
+
+```text
+docs: expand setup tutorial and record UF2 bootloader
+```
+
+---
+
 ## 2026-07-26 - 初始化软件工程与 Git 结构
 
 ### 本次完成
