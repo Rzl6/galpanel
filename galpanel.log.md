@@ -6,6 +6,52 @@
 
 ---
 
+## 2026-08-30 - LED_TEST 云端构建、校验与烧录完成
+
+### 本次完成
+
+- 提交并推送 BLE 名称修复，commit 为 `5d3c975`；
+- GitHub Actions Run #5（Run ID `33320544045`）中，正式 `galpanel` 与 `galpanel_led_test` 均构建成功；
+- 下载 `firmware` artifact，并核对 ZIP SHA-256 为 `4e638f3c34875822db70bbe1f8036715cae3aa4559ecc3f260ee2e55a3c57335`，与 GitHub artifact digest 完全一致；
+- 核验 `galpanel-led-test.uf2` 为 396800 字节、775 个 UF2 块，双魔数正确；
+- 烧录前再次确认目标为 `E: NICENANO`，Board-ID 为 `nRF52840-nicenano`；
+- 将 `galpanel-led-test.uf2` 复制到开发板，盘符随后自动消失，确认 Bootloader 已重启到应用；
+- 更新《测试计划.md》和《学习日志.md》，使全亮测试行为与真实实现一致。
+
+### 为什么这么做
+
+烧录测试固件会直接改变开发板当前运行程序，因此必须同时确认“云端产物未损坏、UF2 格式正确、目标盘符正确”。三层核验通过后再复制，可以避免把下载错误或选错设备误判为 PCB 故障。
+
+### 对后续的好处
+
+- 已证明 LED_TEST 从源码、GitHub Actions 到 UF2 Bootloader 的完整软件链路成立；
+- 用户现在只需报告五颗 GALPANEL LED 的可见结果，即可把问题边界收敛到硬件；
+- 测试产物与正式固件同时保存在忽略目录中，后续可快速切换而不污染 Git；
+- 教程保留了构建错误、摘要校验和烧录判断方法，后续 IO_TEST 可复用同一流程。
+
+### 本次验证
+
+- 项目结构检查：通过；
+- Run #5 全部 jobs：成功；
+- artifact SHA-256：匹配；
+- UF2 块对齐与魔数：通过；
+- 烧录复制：完成；
+- `NICENANO` 盘符自动消失：已观察到。
+
+### 尚未完成
+
+- 等待用户报告 INFO、LINK、FN、WARN、AUX 的实际点亮情况；
+- 等待确认是否存在异常发热、闪烁或 USB 反复重启；
+- 根据实物结果决定进入逐路 LED 诊断还是 T2 IO_TEST。
+
+### 计划提交
+
+```text
+docs: record successful LED test flash
+```
+
+---
+
 ## 2026-08-30 - 修正 LED_TEST 蓝牙名称长度
 
 ### 本次完成
