@@ -1,0 +1,24 @@
+/*
+ * GALPANEL LED test keymap.
+ * All user inputs are disabled; only the GPIO hogs in the overlay are tested.
+ *
+ * Copyright (c) 2026 GALPANEL contributors
+ * SPDX-License-Identifier: MIT
+ */
+
+#include <behaviors.dtsi>
+
+/ {
+    keymap {
+        compatible = "zmk,keymap";
+
+        led_test_layer {
+            display-name = "LED TEST";
+            bindings = <
+                &none &none &none
+                &none &none &none
+                &none &none &none
+            >;
+        };
+    };
+};

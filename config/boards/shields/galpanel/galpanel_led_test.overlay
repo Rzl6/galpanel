@@ -1,0 +1,67 @@
+/*
+ * GALPANEL V2.1 all-on LED electrical test.
+ *
+ * This diagnostic shield deliberately bypasses ZMK status logic. GPIO hogs
+ * drive every populated LED output high as soon as Zephyr initializes the
+ * GPIO controllers. Flash the normal galpanel shield after testing.
+ *
+ * Copyright (c) 2026 GALPANEL contributors
+ * SPDX-License-Identifier: MIT
+ */
+
+#include "galpanel.overlay"
+
+/* Prevent the LED class driver from taking ownership of the same GPIOs. */
+&galpanel_leds {
+    status = "disabled";
+};
+
+/* The encoder is unrelated to LED bring-up and stays disabled in this image. */
+&galpanel_encoder {
+    status = "disabled";
+};
+
+&sensors {
+    status = "disabled";
+};
+
+/* D1/P0.06 WARN red and D0/P0.08 AUX blue (AUX may be DNP). */
+&gpio0 {
+    galpanel_warn_test_hog {
+        gpio-hog;
+        gpios = <6 GPIO_ACTIVE_HIGH>;
+        output-high;
+        line-name = "GALPANEL WARN RED TEST";
+    };
+
+    galpanel_aux_test_hog {
+        gpio-hog;
+        gpios = <8 GPIO_ACTIVE_HIGH>;
+        output-high;
+        line-name = "GALPANEL AUX BLUE TEST";
+    };
+};
+
+/* D6/P1.00 LINK green, D9/P1.06 INFO blue, D15/P1.13 FN white. */
+&gpio1 {
+    galpanel_link_test_hog {
+        gpio-hog;
+        gpios = <0 GPIO_ACTIVE_HIGH>;
+        output-high;
+        line-name = "GALPANEL LINK GREEN TEST";
+    };
+
+    galpanel_info_test_hog {
+        gpio-hog;
+        gpios = <6 GPIO_ACTIVE_HIGH>;
+        output-high;
+        line-name = "GALPANEL INFO BLUE TEST";
+    };
+
+    galpanel_fn_test_hog {
+        gpio-hog;
+        gpios = <13 GPIO_ACTIVE_HIGH>;
+        output-high;
+        line-name = "GALPANEL FN WHITE TEST";
+    };
+};

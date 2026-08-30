@@ -4,3 +4,5 @@
 config SHIELD_GALPANEL
   def_bool $(shields_list_contains,galpanel)
 
+config SHIELD_GALPANEL_LED_TEST
+  def_bool $(shields_list_contains,galpanel_led_test)

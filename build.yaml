@@ -2,4 +2,6 @@ include:
   - board: nice_nano//zmk
     shield: galpanel
     artifact-name: galpanel
-
+  - board: nice_nano//zmk
+    shield: galpanel_led_test
+    artifact-name: galpanel-led-test

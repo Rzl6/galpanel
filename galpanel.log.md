@@ -6,6 +6,54 @@
 
 ---
 
+## 2026-08-30 - 编写 LED_TEST 全亮诊断固件
+
+### 本次完成
+
+- 在 `build.yaml` 中新增独立构建目标 `galpanel_led_test`，产物名为 `galpanel-led-test`；
+- 新增 LED_TEST shield、keymap、conf 和 metadata，不覆盖正式 `galpanel` 配置；
+- 使用 Zephyr GPIO hog 在 GPIO 控制器初始化时直接把五路 LED 输出拉高；
+- 禁用 LED_TEST 中无关的 EC11 sensor 和 ZMK sleep，减少测试变量并保持灯持续可观察；
+- 五路测试引脚为 INFO D9/P1.06、LINK D6/P1.00、FN D15/P1.13、WARN D1/P0.06、AUX D0/P0.08；
+- 扩展项目检查脚本，要求 LED_TEST 文件、构建目标和 `output-high` 配置存在；
+- 确认开发板当前挂载为 `E:\ NICENANO`，Board-ID 为 `nRF52840-nicenano`，但在云端构建和 UF2 校验完成前未写入。
+
+### 为什么这么做
+
+当前首先要回答的是 LED 电气链路是否成立，而不是状态动画是否正确。GPIO hog 不依赖 BLE、键位行为或自定义事件监听，可以在 Zephyr 初始化 GPIO 时直接输出高电平，从而把软件变量压缩到最少。
+
+测试固件使用独立 shield 和 artifact 名称，避免把诊断配置误当成正式 GALPANEL 固件，也便于随时刷回正式版本。
+
+### 对后续的好处
+
+- 五灯全部亮可快速确认 `R_LED_EN`、LED_GND、极性和主要焊接回路；
+- 部分不亮时可直接按 D9/D6/D15/D1/D0 定位；
+- 全亮测试通过后，后续 LED 状态模块只需关注事件和动画，不再怀疑电气层；
+- 正式 USB/BLE 固件没有被诊断行为污染。
+
+### 本次验证
+
+- PowerShell 7 项目结构检查：通过；
+- `build.yaml`、workflow、west manifest 和两份 shield metadata 的 YAML 解析：通过；
+- `E:\INFO_UF2.TXT`：nice!nano / nRF52840-nicenano；
+- 尚待 GitHub Actions 进行真实 Devicetree/Kconfig/ZMK 编译。
+
+### 尚未完成
+
+- LED_TEST 云端构建；
+- 下载和校验 `galpanel-led-test.uf2`；
+- 实物烧录与五灯观察；
+- 根据结果逐灯或公共回路诊断；
+- 测试结束后刷回正式 `galpanel.uf2`。
+
+### 计划提交
+
+```text
+test: add all-on LED diagnostic firmware
+```
+
+---
+
 ## 2026-08-30 - 建立整板焊接后的分阶段测试计划
 
 ### 本次完成

@@ -7,12 +7,17 @@ $requiredFiles = @(
     '项目规划.md',
     'galpanel.log.md',
     '学习日志.md',
+    '测试计划.md',
     'build.yaml',
     '.github/workflows/build.yml',
     'config/west.yml',
     'config/boards/shields/galpanel/galpanel.overlay',
     'config/boards/shields/galpanel/galpanel.keymap',
-    'config/boards/shields/galpanel/galpanel.conf'
+    'config/boards/shields/galpanel/galpanel.conf',
+    'config/boards/shields/galpanel/galpanel_led_test.overlay',
+    'config/boards/shields/galpanel/galpanel_led_test.keymap',
+    'config/boards/shields/galpanel/galpanel_led_test.conf',
+    'config/boards/shields/galpanel/galpanel_led_test.zmk.yml'
 )
 
 $failed = $false
@@ -30,8 +35,10 @@ foreach ($relativePath in $requiredFiles) {
 $checks = @(
     @{ File = 'build.yaml'; Pattern = 'nice_nano//zmk'; Name = 'nice!nano ZMK board target' },
     @{ File = 'build.yaml'; Pattern = 'shield: galpanel'; Name = 'GALPANEL shield target' },
+    @{ File = 'build.yaml'; Pattern = 'shield: galpanel_led_test'; Name = 'GALPANEL LED test shield target' },
     @{ File = 'config/boards/shields/galpanel/galpanel.overlay'; Pattern = 'zmk,kscan-gpio-direct'; Name = 'direct GPIO key scan' },
-    @{ File = 'config/boards/shields/galpanel/galpanel.overlay'; Pattern = 'steps = <80>'; Name = 'EC11 quadrature step count' }
+    @{ File = 'config/boards/shields/galpanel/galpanel.overlay'; Pattern = 'steps = <80>'; Name = 'EC11 quadrature step count' },
+    @{ File = 'config/boards/shields/galpanel/galpanel_led_test.overlay'; Pattern = 'output-high'; Name = 'LED test outputs are forced high' }
 )
 
 foreach ($check in $checks) {
