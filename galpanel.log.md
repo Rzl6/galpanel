@@ -6,6 +6,45 @@
 
 ---
 
+## 2026-08-30 - 修正 LED_TEST 蓝牙名称长度
+
+### 本次完成
+
+- 检查 GitHub Actions Run #4（Run ID `33319996295`）的完整构建日志；
+- 确认正式 `galpanel` 构建成功，只有独立 `galpanel_led_test` 构建失败；
+- 将 LED_TEST 的 `ZMK_KEYBOARD_NAME` 从 `GALPANEL LED TEST` 缩短为 `GP LED TEST`；
+- 保留 GPIO hog 全亮测试逻辑不变。
+
+### 为什么这么做
+
+ZMK 对 BLE 设备名执行编译期长度检查，最大为 16 字节。原名称超过限制，导致 Kconfig 静态断言失败；这与五路 LED 的 GPIO 配置和硬件无关。
+
+### 对后续的好处
+
+- 消除当前唯一已知的编译阻塞；
+- 保持测试固件在蓝牙设备列表中仍容易识别；
+- 不改动 LED 测试电平、正式固件或用户 PCB 文件，减少重新验证范围。
+
+### 本次验证
+
+- Run #4 正式 `galpanel` 构建：通过；
+- Run #4 `galpanel_led_test`：仅因 BLE 名称超长失败；
+- 构建日志在 `artifacts/led-test-job-99280191833.log` 留存，该目录已被 Git 忽略。
+
+### 尚未完成
+
+- 触发并等待修正后的云端构建；
+- 下载、校验和烧录 `galpanel-led-test.uf2`；
+- 记录五颗 LED 的实际点亮结果。
+
+### 计划提交
+
+```text
+fix: shorten LED test Bluetooth name
+```
+
+---
+
 ## 2026-08-30 - 编写 LED_TEST 全亮诊断固件
 
 ### 本次完成
