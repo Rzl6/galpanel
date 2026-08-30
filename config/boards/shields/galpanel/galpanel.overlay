@@ -80,28 +80,27 @@
 
         led_link: led_link {
             gpios = <&pro_micro 6 GPIO_ACTIVE_HIGH>;
-            label = "GALPANEL LINK";
+            label = "GALPANEL LINK GREEN";
         };
 
         led_info: led_info {
             gpios = <&pro_micro 9 GPIO_ACTIVE_HIGH>;
-            label = "GALPANEL INFO";
+            label = "GALPANEL INFO BLUE";
         };
 
         led_fn: led_fn {
             gpios = <&pro_micro 15 GPIO_ACTIVE_HIGH>;
-            label = "GALPANEL FN";
+            label = "GALPANEL FN WHITE";
         };
 
         led_warn: led_warn {
             gpios = <&pro_micro 1 GPIO_ACTIVE_HIGH>;
-            label = "GALPANEL WARN";
+            label = "GALPANEL WARN RED";
         };
 
         led_aux: led_aux {
             gpios = <&pro_micro 0 GPIO_ACTIVE_HIGH>;
-            label = "GALPANEL AUX DNP";
+            label = "GALPANEL AUX BLUE DNP";
         };
     };
 };
-

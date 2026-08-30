@@ -6,6 +6,51 @@
 
 ---
 
+## 2026-08-30 - 校正 GALPANEL LED 颜色并区分板载指示灯
+
+### 本次完成
+
+- 根据用户提供的最新焊接原理图，确认颜色映射：`INFO=蓝`、`LINK=绿`、`FN=白`、`WARN=红`、`AUX=蓝`；
+- 修正 `项目认知.md` 中此前把 INFO/LINK 颜色写反的问题；
+- 为设备树 LED 标签补充颜色信息；
+- 明确 SuperMini 板载红/蓝灯与 GALPANEL 五颗 LED 是两套独立电路；
+- 明确当前固件仅声明 `gpio-leds`，尚未实现状态事件监听或 LED API 驱动，因此 GALPANEL LED 全部不亮属于当前软件预期；
+- 记录 `LED_GND -> R_LED_EN(0 Ω) -> GND` 公共回路为硬件排查重点。
+
+### 为什么这么做
+
+如果把板载蓝灯闪烁误认为 GALPANEL 的 LINK 灯，或者把 GALPANEL 灯不亮误认为 BLE 失败，排查方向会完全偏离。先固定网络、颜色和软件现状，才能设计可靠的 LED bring-up 测试。
+
+### 对后续的好处
+
+- 装配、测试和代码中的颜色命名保持一致；
+- BLE 故障与 LED 公共回路故障可以分开定位；
+- 后续可先做“全灯点亮”诊断，再接入 BLE/Profile/Fn/WARN 状态动画；
+- `R_LED_EN` 缺件或公共地断路时，可以优先检查一个节点而不是五颗 LED 逐个返工。
+
+### 本次验证
+
+- 对照用户提供的 V2.1 焊接原理图核对 D9/D6/D15/D1/D0 五路网络；
+- 对照 `galpanel.overlay` 确认五路 GPIO 和 `GPIO_ACTIVE_HIGH` 一致；
+- 对照当前固件注释确认尚未实现 LED 状态驱动；
+- ZMK 项目结构检查继续通过。
+
+### 尚未完成
+
+- 全灯点亮诊断固件；
+- `R_LED_EN` 和 `LED_GND` 实物通断确认；
+- BLE 广播、连接状态与 LINK 绿灯绑定；
+- USB/操作反馈与 INFO 蓝灯绑定；
+- Fn 白灯、WARN 红灯、AUX 蓝灯的实际行为。
+
+### 计划提交
+
+```text
+docs: correct GALPANEL LED color mapping [skip ci]
+```
+
+---
+
 ## 2026-07-26 - Windows BLE 配对与无线 Ctrl 验证通过
 
 ### 本次完成
