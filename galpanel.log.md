@@ -31,11 +31,12 @@
 
 - 已阅读当前 ZMK `behavior_input_two_axis.c`：默认 `trigger-period-ms=16 ms`，滚轮行为在 release 时取消周期任务；
 - 已确认 Windows 当前枚举出 GALPANEL 的 `HID-compliant mouse` 集合，说明 HID 描述符已经存在；
-- 已完成代码修改，等待 GitHub Actions 构建和重新烧录。
+- GitHub Actions Run #29（Run ID `33376150467`）五个目标全部构建成功；
+- 已下载新版 `galpanel-ec11-test.uf2`，长度 `404480` bytes，SHA-256 为 `A55E7B06DD8FD946C43FF9028849A5C68BCBA72121ABB55DC731807B12ED7F77`；
+- 当前电脑尚未出现 `NICENANO` Bootloader 盘符，因此尚未复制烧录。
 
 ### 尚未完成
 
-- 云端构建；
 - 烧录新版 `galpanel-ec11-test.uf2`；
 - 实物确认顺时针下滚、逆时针上滚，以及快速连续刻度无漏步。
 
