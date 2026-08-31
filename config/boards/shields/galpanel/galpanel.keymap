@@ -57,7 +57,9 @@
         scroll_encoder: scroll_encoder {
             compatible = "zmk,behavior-sensor-rotate";
             #sensor-binding-cells = <0>;
-            bindings = <&msc SCRL_DOWN>, <&msc SCRL_UP>;
+            /* Hardware reports clockwise as the negative direction.
+             * First binding is CCW, second binding is CW. */
+            bindings = <&msc SCRL_UP>, <&msc SCRL_DOWN>;
             tap-ms = <5>;
         };
     };
@@ -100,7 +102,8 @@
                 &kp C_MUTE
             >;
 
-            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
+            /* Clockwise = volume up, counter-clockwise = volume down. */
+            sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP>;
         };
     };
 };
