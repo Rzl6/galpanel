@@ -6,6 +6,43 @@
 
 ---
 
+## 2026-08-31 - 烧录 BLE Profile 恢复固件
+
+### 本次完成
+
+- GitHub Actions Run #30（Run ID `33398675515`）五个原有目标及新增 BLE 恢复目标构建成功；
+- 下载 `galpanel-ble-recovery.uf2`，长度 `392192` bytes，SHA-256 为 `213EF8F489BFFC9FA8A15D43D46C30444BF36ED64F2D454E55ADDF9815B475F5`；
+- 烧录到 `E:` / `NICENANO`，复制完成后盘符自动消失，确认设备已启动恢复固件。
+
+### 为什么这么做
+
+正式固件的 SYS 键只能轮换 Profile，且 LED 尚未显示 Profile 状态；Windows 当前保存的 GALPANEL bond 无法确认对应哪个 Profile。恢复固件提供直接选择 Profile 和清除 bond 的按键，能够在 BLE 未连接时通过 USB 完成恢复。
+
+### 对后续的好处
+
+- 可以先清除设备端全部旧 bond，再删除 Windows 旧设备并建立干净配对；
+- 可以单独验证 5 个 Profile 的选择行为；
+- 恢复流程完成后，再实现正式 LED 状态显示，避免把 LED 缺口与配对故障混为一谈。
+
+### 本次验证
+
+- 恢复固件构建成功；
+- UF2 复制成功；
+- Bootloader 盘符自动消失。
+
+### 尚未完成
+
+- 按 D8（SYS）清除全部 bond；
+- Windows 删除旧 `GALPANEL` 设备；
+- 刷回正式 `galpanel.uf2` 并重新配对；
+- 实现 Profile/连接 LED 指示。
+
+### 关联提交
+
+`25f5518`（恢复固件）
+
+---
+
 ## 2026-08-31 - 增加 BLE Profile 恢复固件
 
 ### 本次完成
