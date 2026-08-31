@@ -1,0 +1,19 @@
+/* GALPANEL independent LED indicator test keymap. */
+
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/keys.h>
+
+/ {
+    keymap {
+        compatible = "zmk,keymap";
+
+        led_ind_test_layer {
+            display-name = "LED IND TEST";
+            bindings = <
+                &kp NUMLOCK &kp CAPSLOCK &kp SCROLLLOCK
+                &kp COMPOSE &kp KANA &none
+                &none &none &none
+            >;
+        };
+    };
+};

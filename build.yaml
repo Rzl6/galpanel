@@ -5,3 +5,12 @@ include:
   - board: nice_nano//zmk
     shield: galpanel_led_test
     artifact-name: galpanel-led-test
+  - board: nice_nano//zmk
+    shield: galpanel_led_ind_test
+    artifact-name: galpanel-led-ind-test
+  - board: nice_nano//zmk
+    shield: galpanel_io_test
+    artifact-name: galpanel-io-test
+  - board: nice_nano//zmk
+    shield: galpanel_ec11_test
+    artifact-name: galpanel-ec11-test

@@ -1,0 +1,7 @@
+/* GALPANEL V2.1 EC11 and input test. */
+
+#include "galpanel.overlay"
+
+&galpanel_leds {
+    status = "disabled";
+};

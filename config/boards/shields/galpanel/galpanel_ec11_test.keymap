@@ -1,0 +1,30 @@
+/* GALPANEL EC11 test: inputs emit digits; rotation emits Up/Down. */
+
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/keys.h>
+
+/ {
+    behaviors {
+        encoder_test: encoder_test {
+            compatible = "zmk,behavior-sensor-rotate";
+            #sensor-binding-cells = <0>;
+            bindings = <&inc_dec_kp UP DOWN>;
+            tap-ms = <5>;
+        };
+    };
+
+    keymap {
+        compatible = "zmk,keymap";
+
+        ec11_test_layer {
+            display-name = "EC11 TEST";
+            bindings = <
+                &kp N1 &kp N2 &kp N3
+                &kp N4 &kp N5 &kp N6
+                &kp N7 &kp N8 &kp N9
+            >;
+
+            sensor-bindings = <&encoder_test>;
+        };
+    };
+};

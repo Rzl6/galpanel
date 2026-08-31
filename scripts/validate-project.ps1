@@ -17,7 +17,19 @@ $requiredFiles = @(
     'config/boards/shields/galpanel/galpanel_led_test.overlay',
     'config/boards/shields/galpanel/galpanel_led_test.keymap',
     'config/boards/shields/galpanel/galpanel_led_test.conf',
-    'config/boards/shields/galpanel/galpanel_led_test.zmk.yml'
+    'config/boards/shields/galpanel/galpanel_led_test.zmk.yml',
+    'config/boards/shields/galpanel/galpanel_led_ind_test.overlay',
+    'config/boards/shields/galpanel/galpanel_led_ind_test.keymap',
+    'config/boards/shields/galpanel/galpanel_led_ind_test.conf',
+    'config/boards/shields/galpanel/galpanel_led_ind_test.zmk.yml',
+    'config/boards/shields/galpanel/galpanel_io_test.overlay',
+    'config/boards/shields/galpanel/galpanel_io_test.keymap',
+    'config/boards/shields/galpanel/galpanel_io_test.conf',
+    'config/boards/shields/galpanel/galpanel_io_test.zmk.yml',
+    'config/boards/shields/galpanel/galpanel_ec11_test.overlay',
+    'config/boards/shields/galpanel/galpanel_ec11_test.keymap',
+    'config/boards/shields/galpanel/galpanel_ec11_test.conf',
+    'config/boards/shields/galpanel/galpanel_ec11_test.zmk.yml'
 )
 
 $failed = $false
@@ -39,6 +51,9 @@ $checks = @(
     @{ File = 'config/boards/shields/galpanel/galpanel.overlay'; Pattern = 'zmk,kscan-gpio-direct'; Name = 'direct GPIO key scan' },
     @{ File = 'config/boards/shields/galpanel/galpanel.overlay'; Pattern = 'steps = <80>'; Name = 'EC11 quadrature step count' },
     @{ File = 'config/boards/shields/galpanel/galpanel_led_test.overlay'; Pattern = 'output-high'; Name = 'LED test outputs are forced high' }
+    @{ File = 'config/boards/shields/galpanel/galpanel_led_ind_test.overlay'; Pattern = 'zmk,indicator-leds'; Name = 'LED indicator test mapping' }
+    @{ File = 'config/boards/shields/galpanel/galpanel_io_test.keymap'; Pattern = '&kp N9'; Name = 'IO test nine-key map' }
+    @{ File = 'config/boards/shields/galpanel/galpanel_ec11_test.keymap'; Pattern = 'sensor-bindings'; Name = 'EC11 test sensor binding' }
 )
 
 foreach ($check in $checks) {

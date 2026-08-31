@@ -6,3 +6,12 @@ config SHIELD_GALPANEL
 
 config SHIELD_GALPANEL_LED_TEST
   def_bool $(shields_list_contains,galpanel_led_test)
+
+config SHIELD_GALPANEL_LED_IND_TEST
+  def_bool $(shields_list_contains,galpanel_led_ind_test)
+
+config SHIELD_GALPANEL_IO_TEST
+  def_bool $(shields_list_contains,galpanel_io_test)
+
+config SHIELD_GALPANEL_EC11_TEST
+  def_bool $(shields_list_contains,galpanel_ec11_test)

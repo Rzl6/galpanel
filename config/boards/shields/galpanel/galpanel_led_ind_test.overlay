@@ -1,0 +1,52 @@
+/*
+ * GALPANEL V2.1 independent LED control test.
+ *
+ * Each GALPANEL LED is mapped to one HID indicator. Toggle Num Lock,
+ * Caps Lock, and Scroll Lock from the host to verify three channels.
+ * Compose and Kana remain available for a HID-output test tool.
+ *
+ * Copyright (c) 2026 GALPANEL contributors
+ * SPDX-License-Identifier: MIT
+ */
+
+#include <dt-bindings/zmk/hid_indicators.h>
+#include "galpanel.overlay"
+
+&galpanel_encoder {
+    status = "disabled";
+};
+
+&sensors {
+    status = "disabled";
+};
+
+/ {
+    galpanel_indicator_leds: galpanel_indicator_leds {
+        compatible = "zmk,indicator-leds";
+
+        info_indicator: info {
+            indicator = <HID_INDICATOR_NUM_LOCK>;
+            leds = <&led_info>;
+        };
+
+        link_indicator: link {
+            indicator = <HID_INDICATOR_CAPS_LOCK>;
+            leds = <&led_link>;
+        };
+
+        fn_indicator: fn {
+            indicator = <HID_INDICATOR_SCROLL_LOCK>;
+            leds = <&led_fn>;
+        };
+
+        warn_indicator: warn {
+            indicator = <HID_INDICATOR_COMPOSE>;
+            leds = <&led_warn>;
+        };
+
+        aux_indicator: aux {
+            indicator = <HID_INDICATOR_KANA>;
+            leds = <&led_aux>;
+        };
+    };
+};

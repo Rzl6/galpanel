@@ -6,6 +6,50 @@
 
 ---
 
+## 2026-08-31 - 设计后三个独立诊断固件
+
+### 本次完成
+
+- 新增 `galpanel_led_ind_test`：使用 ZMK HID indicator-leds，将五路 LED 映射到 Num/Caps/Scroll/Compose/Kana 指示位；
+- 新增 `galpanel_io_test`：九路普通输入分别输出 `1～9`，禁用 EC11 与 LED，减少测试变量；
+- 新增 `galpanel_ec11_test`：保留九路数字输入，同时把 EC11 旋转映射为 `Up/Down`、按压映射为 `9`；
+- 在 `build.yaml` 中登记三个独立 artifact：`galpanel-led-ind-test`、`galpanel-io-test`、`galpanel-ec11-test`；
+- 为三个 shield 增加独立 Kconfig、metadata、overlay、keymap 和配置文件；
+- 扩展项目验证脚本，检查三个固件的文件、构建入口和关键绑定；
+- 更新《测试计划.md》和《学习日志.md》，明确三套固件的测试边界和执行顺序。
+
+### 为什么这么做
+
+LED 全亮已通过，但仍需证明每路能独立控制；九路输入和 EC11 也需要可见、无副作用的输出。把三类问题拆成三份固件后，用户可以用字符、方向键和 HID 指示位分别判断硬件层，而不必同时承担正式宏、BLE Profile 和 LED 状态逻辑。
+
+### 对后续的好处
+
+- 每个 artifact 都能单独刷写、回退和记录；
+- IO_TEST 的数字输出避免 F11、Win+D 等危险或不可见按键造成误判；
+- EC11_TEST 可以一次覆盖普通按键、旋钮 A/B 相位和按压开关；
+- LED 独立测试完成后，正式固件接入状态灯时已有硬件基线；
+- 以后若云端某个目标失败，日志可以直接定位到对应 shield，而不是整板配置。
+
+### 本次验证
+
+- 项目结构验证脚本：通过；
+- `git diff --check`：通过；
+- 三个目标已加入 GitHub Actions 构建矩阵，尚未进行真实云端编译。
+
+### 尚未完成
+
+- 推送后等待四个测试/正式目标全部云端构建；
+- 若出现 ZMK 版本兼容错误，依据 Actions 日志修正；
+- 用户回家后按 LED 独立、IO、EC11 顺序烧录和实测。
+
+### 计划提交
+
+```text
+test: add LED, IO, and EC11 diagnostic firmware
+```
+
+---
+
 ## 2026-08-31 - LED_TEST 五灯全亮实物验证通过
 
 ### 本次完成

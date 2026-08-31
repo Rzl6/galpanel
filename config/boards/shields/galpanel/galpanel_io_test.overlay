@@ -1,0 +1,15 @@
+/* GALPANEL V2.1 nine-input visibility test. */
+
+#include "galpanel.overlay"
+
+&galpanel_encoder {
+    status = "disabled";
+};
+
+&sensors {
+    status = "disabled";
+};
+
+&galpanel_leds {
+    status = "disabled";
+};

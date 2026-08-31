@@ -1,0 +1,8 @@
+file_format: "1"
+id: galpanel_ec11_test
+name: GALPANEL EC11 TEST
+type: shield
+requires: [pro_micro]
+features:
+  - keys
+  - encoder
