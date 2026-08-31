@@ -31,11 +31,12 @@
 
 - 项目结构检查：通过；
 - `git diff --check`：通过；
-- 等待 GitHub Actions 对正式和 EC11_TEST 目标进行编译确认。
+- GitHub Actions Run #10（Run ID `33373877764`）五个目标全部构建成功；
+- 正式 `galpanel` 与修正版 `galpanel_ec11_test` 均已生成可烧录 UF2；
+- 本轮尚未向开发板烧录。
 
 ### 尚未完成
 
-- 云端构建通过；
 - 刷入修正后的 EC11_TEST，确认网页顺时针下滚、逆时针上滚；
 - 刷回正式 `galpanel.uf2` 完成最终验收。
 
