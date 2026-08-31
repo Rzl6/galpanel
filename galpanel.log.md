@@ -6,6 +6,43 @@
 
 ---
 
+## 2026-08-31 - 清除 BLE bond 后刷回正式固件
+
+### 本次完成
+
+- 用户已使用 BLE 恢复固件完成设备端 bond 清除，并在 Windows 删除旧设备后重新配对；
+- 将正式 `galpanel.uf2` 刷回开发板；
+- 正式 UF2 长度 `412160` bytes，SHA-256 为 `2688FCFDB712894BCCBD28C2278D3F5887CEFF28BFEFB3B215DF7B9C951FC404`；
+- `E:` / `NICENANO` 复制完成后自动消失，确认设备已跳转正式应用固件。
+
+### 为什么这么做
+
+BLE 恢复固件只负责选择 Profile 和清除旧 bond，不能作为产品固件长期使用。清除设备端和 Windows 端旧配对后，必须刷回正式镜像，才能验证产品键位、EC11、Fn、输出切换和 BLE 自动重连。
+
+### 对后续的好处
+
+- 正式固件现在使用全新的 BLE 配对关系，排除旧 Profile/bond 缓存影响；
+- 可以直接验证断 USB 后的无线连接和实际 GALGAME 键位；
+- 后续 LED 状态模块可以在干净的 BLE 连接事件上实现，不受旧配对状态干扰。
+
+### 本次验证
+
+- 用户确认 bond 清除和重新配对完成；
+- 正式 UF2 烧录复制成功；
+- Bootloader 盘符自动消失。
+
+### 尚未完成
+
+- 正式固件断 USB 后 BLE 自动重连复测；
+- 确认 SYS 单击 `BT_NXT` 和双击 `OUT_TOG`；
+- 实现并测试 Profile/连接 LED 状态指示。
+
+### 关联提交
+
+待提交：`test: restore formal firmware after BLE recovery`
+
+---
+
 ## 2026-08-31 - 烧录 BLE Profile 恢复固件
 
 ### 本次完成
