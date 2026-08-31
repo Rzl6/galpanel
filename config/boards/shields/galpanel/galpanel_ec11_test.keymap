@@ -1,4 +1,4 @@
-/* GALPANEL EC11 test: inputs emit digits; rotation emits Up/Down. */
+/* GALPANEL nine-key + EC11 test: keys emit digits; rotation emits Up/Down. */
 
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/keys.h>
@@ -18,6 +18,9 @@
 
         ec11_test_layer {
             display-name = "EC11 TEST";
+
+            /* D2 FAST, D3 AUTO, D4 NEXT, D5 QSAVE, D7 DESKTOP,
+             * D8 SYS, D14 FN, D18 QLOAD, D19 EC11_SW. */
             bindings = <
                 &kp N1 &kp N2 &kp N3
                 &kp N4 &kp N5 &kp N6

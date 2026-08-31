@@ -1,4 +1,4 @@
-/* GALPANEL nine-input test: each physical input emits one digit. */
+/* GALPANEL nine-key GPIO test: 3 mechanical + 4 side + SYS + EC11 press. */
 
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/keys.h>
@@ -9,6 +9,9 @@
 
         io_test_layer {
             display-name = "IO TEST";
+
+            /* D2 FAST, D3 AUTO, D4 NEXT, D5 QSAVE, D7 DESKTOP,
+             * D8 SYS, D14 FN, D18 QLOAD, D19 EC11_SW. */
             bindings = <
                 &kp N1 &kp N2 &kp N3
                 &kp N4 &kp N5 &kp N6
