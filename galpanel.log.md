@@ -6,6 +6,48 @@
 
 ---
 
+## 2026-08-31 - 烧录 LED 独立控制测试固件
+
+### 本次完成
+
+- 烧录目标：`galpanel-led-ind-test.uf2`；
+- 烧录前确认开发板为 `E: NICENANO`，Board-ID 为 `nRF52840-nicenano`；
+- 核验 UF2 长度 398848 字节、779 个 512 字节块，UF2 魔数正确；
+- 复制完成后 `E:` 自动消失，确认 Bootloader 已跳转到 LED 独立控制测试应用。
+
+### 为什么这么做
+
+T1 全亮测试已经证明五路 LED 电气链路成立，现在需要验证各路是否能独立受控。该固件等待主机 HID 指示灯状态，不会默认点亮 LED，避免把“全部常亮”误认为独立控制通过。
+
+### 对后续的好处
+
+- 可以区分单路 LED 控制问题和公共回路问题；
+- 确认 INFO/LINK/FN 三路后，再决定是否需要专用 HID 输出工具验证 WARN/AUX；
+- 独立控制通过后即可安全进入 IO_TEST，不再重复排查 LED 硬件。
+
+### 本次验证
+
+- Bootloader 盘符与 Board-ID：通过；
+- UF2 格式：通过；
+- 复制烧录：完成；
+- 等待用户报告上电后的 LED 初始状态和逐路响应。
+
+### 尚未完成
+
+- Num Lock → INFO 蓝；
+- Caps Lock → LINK 绿；
+- Scroll Lock → FN 白；
+- Compose/Kana → WARN 红/AUX 蓝（需要主机发送对应 HID 指示位）；
+- 完成后刷入 `galpanel-io-test.uf2`。
+
+### 计划提交
+
+```text
+test: flash independent LED diagnostic firmware
+```
+
+---
+
 ## 2026-08-31 - 澄清整板输入数量与测试边界
 
 ### 本次完成
