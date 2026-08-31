@@ -6,6 +6,43 @@
 
 ---
 
+## 2026-08-31 - 电池供电下 BLE 配对记录存在但连接失败
+
+### 本次完成
+
+- 用户在 Windows 蓝牙面板看到 `GALPANEL`，但手动连接提示“无法连接，请尝试重新连接”；
+- 检查 Windows PnP 状态，确认系统仍保留 GALPANEL 的 BLE HID 服务和鼠标 HID 集合；
+- 检查当前 ZMK endpoint 源码，确认 USB 偏好在 USB 不可用时不会永久禁止 BLE，BLE 已连接后可作为回退端点；
+- 将首要排查方向调整为活动 BLE Profile 与 Windows 保存的 bond 不一致。
+
+### 为什么这么做
+
+Windows 蓝牙面板中存在设备条目，只能证明电脑保存过配对记录；不能证明设备当前使用同一个 ZMK Profile。GALPANEL 的 SYS 单击会执行 `BT_NXT`，五个 Profile 中只有原配对 Profile 能使用旧 bond 自动连接。BLE 键盘通常由设备主动重连，手动点击 Windows 的“连接”并不是可靠测试方式。
+
+### 对后续的好处
+
+- 先通过无破坏的 Profile 轮询恢复连接，不立即清除 Windows 和设备端 bond；
+- 若五个 Profile 全部失败，可明确进入 BLE bond 双端重置流程；
+- 后续 LINK 绿灯/Profile 闪烁模块将避免这种“当前 Profile 不可见”的问题。
+
+### 本次验证
+
+- Windows 中仍存在 GALPANEL 对应的 BLE HID/鼠标 HID 设备集合；
+- 正式固件含 5 个 BLE Profile，SYS 单击绑定为 `BT_NXT`；
+- ZMK endpoint 源码确认未连接 USB 时允许 BLE 作为有效传输端点。
+
+### 尚未完成
+
+- 用户轮询五个 BLE Profile并测试自动重连；
+- 若全部失败，删除 Windows 配对并使用 BLE recovery/settings reset 清除设备端 bond；
+- 重新配对后验证断电重连。
+
+### 关联提交
+
+待提交：`docs: diagnose BLE profile reconnect failure`
+
+---
+
 ## 2026-08-31 - 说明 3.7 V 供电与板载蓝灯状态
 
 ### 本次完成
