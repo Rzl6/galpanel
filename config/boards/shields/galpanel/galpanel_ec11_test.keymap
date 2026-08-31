@@ -5,18 +5,18 @@
 #include <dt-bindings/zmk/pointing.h>
 
 / {
+    behaviors {
+        encoder_scroll_test: encoder_scroll_test {
+            compatible = "zmk,behavior-sensor-rotate";
+            #sensor-binding-cells = <0>;
+            /* First binding is CCW, second is CW on this hardware. */
+            bindings = <&msc SCRL_UP>, <&msc SCRL_DOWN>;
+            tap-ms = <5>;
+        };
+    };
+
     keymap {
         compatible = "zmk,keymap";
-
-        behaviors {
-            encoder_scroll_test: encoder_scroll_test {
-                compatible = "zmk,behavior-sensor-rotate";
-                #sensor-binding-cells = <0>;
-                /* First binding is CCW, second is CW on this hardware. */
-                bindings = <&msc SCRL_UP>, <&msc SCRL_DOWN>;
-                tap-ms = <5>;
-            };
-        };
 
         ec11_test_layer {
             display-name = "EC11 TEST";
