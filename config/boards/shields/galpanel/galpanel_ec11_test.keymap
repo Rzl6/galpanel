@@ -2,6 +2,7 @@
 
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/keys.h>
+#define ZMK_POINTING_DEFAULT_SCRL_VAL 100
 #include <dt-bindings/zmk/pointing.h>
 
 / {
@@ -11,7 +12,9 @@
             #sensor-binding-cells = <0>;
             /* First binding is CCW, second is CW on this hardware. */
             bindings = <&msc SCRL_UP>, <&msc SCRL_DOWN>;
-            tap-ms = <5>;
+            /* &msc is a hold-style behavior. Keep it long enough for one
+             * input-two-axis tick to produce a non-zero wheel report. */
+            tap-ms = <20>;
         };
     };
 

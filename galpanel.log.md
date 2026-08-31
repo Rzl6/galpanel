@@ -6,6 +6,47 @@
 
 ---
 
+## 2026-08-31 - 修复 EC11 鼠标滚轮脉冲过短
+
+### 本次完成
+
+- 根据实物反馈“最新 EC11_TEST 仍然滚动无反应”，检查 ZMK `&msc` 的实现；
+- 确认 `&msc` 是 `zmk,behavior-input-two-axis` 按住周期输出行为，不是立即发送一次滚轮值；
+- 将 EC11 滚轮行为的 `tap-ms` 从 `5 ms` 调整为 `20 ms`；
+- 将本项目的滚轮量宏 `ZMK_POINTING_DEFAULT_SCRL_VAL` 从默认 `10` 调整为 `100`，使首个 16 ms 输入周期即可产生非零滚轮报告；
+- 同步修改正式 `galpanel` keymap 和 `galpanel_ec11_test` 诊断 keymap。
+
+### 为什么这么做
+
+原配置在旋钮事件中只保持 5 ms。ZMK 鼠标滚轮行为默认每 16 ms 计算一次移动量，滚轮速度为 10 时，5 ms 内不会形成可发送的整数滚轮单位；释放动作又会取消后续周期任务，因此电脑能看到鼠标接口，却收不到滚轮报告。
+
+### 对后续的好处
+
+- 每个明显 EC11 刻度都能稳定产生至少一个滚轮 HID 报告；
+- 延迟约 20 ms，仍符合旋钮操作的即时感；
+- 正式固件和诊断固件的滚轮参数一致，测试结果可直接作为产品回归依据；
+- 不改变已经验证过的 A/B 引脚、方向和每圈 20 个刻度设置。
+
+### 本次验证
+
+- 已阅读当前 ZMK `behavior_input_two_axis.c`：默认 `trigger-period-ms=16 ms`，滚轮行为在 release 时取消周期任务；
+- 已确认 Windows 当前枚举出 GALPANEL 的 `HID-compliant mouse` 集合，说明 HID 描述符已经存在；
+- 已完成代码修改，等待 GitHub Actions 构建和重新烧录。
+
+### 尚未完成
+
+- 云端构建；
+- 烧录新版 `galpanel-ec11-test.uf2`；
+- 实物确认顺时针下滚、逆时针上滚，以及快速连续刻度无漏步。
+
+### 计划提交
+
+```text
+fix: lengthen EC11 mouse scroll pulse
+```
+
+---
+
 ## 2026-08-31 - 修复 EC11_TEST 未启用鼠标 HID
 
 ### 本次完成
