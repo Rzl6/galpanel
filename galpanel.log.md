@@ -6,6 +6,47 @@
 
 ---
 
+## 2026-08-31 - 增加 BLE Profile 恢复固件
+
+### 本次完成
+
+- 检查正式 keymap，确认 SYS 单击为 `BT_NXT`、双击为 `OUT_TOG`；
+- 确认五颗 GALPANEL LED 当前只有 `gpio-leds` 声明，没有 Profile/连接状态事件监听，因此切换 Profile 不会亮灯；
+- 新增 `galpanel_ble_recovery` 构建目标；
+- 恢复固件提供 Profile 0～4 直接选择、当前 Profile 清除、全部 bond 清除和下一个 Profile 操作；
+- 恢复固件禁用 EC11、鼠标和睡眠，降低恢复阶段变量。
+
+### 为什么这么做
+
+Windows 保留了 `GALPANEL` 设备条目，但始终提示无法连接。仅通过 `BT_NXT` 轮询无法确认当前 Profile，也无法清理设备端旧 bond。先用 USB 烧录恢复镜像，可以在没有 BLE 连接时完成 Profile 选择和配对清除；LED 状态显示属于下一步独立功能，不与恢复动作混在一起。
+
+### 对后续的好处
+
+- 可以明确区分“广播/Profile 选择问题”和“电脑配对缓存问题”；
+- 通过 `BT_CLR_ALL` 清除设备端全部旧 bond 后，可建立干净的正式配对；
+- 后续 LED 状态模块可以基于确认过的 BLE 事件实现真实 Profile 指示，而不是用假设替代状态。
+
+### 本次验证
+
+- 正式 keymap 与 ZMK Bluetooth behavior 源码已核对；
+- `BT_CLR_ALL` 确认为清除全部 Profile bond 的原生行为；
+- 恢复固件代码和构建目标已加入仓库，等待云端构建。
+
+### 尚未完成
+
+- 云端构建恢复固件；
+- 烧录恢复固件并清除设备端 bond；
+- Windows 删除旧 `GALPANEL` 条目并重新配对；
+- 实现正式固件的 Profile/连接 LED 指示。
+
+### 计划提交
+
+```text
+feat: add BLE profile recovery firmware
+```
+
+---
+
 ## 2026-08-31 - 电池供电下 BLE 配对记录存在但连接失败
 
 ### 本次完成

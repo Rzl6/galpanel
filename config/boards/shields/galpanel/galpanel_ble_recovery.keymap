@@ -1,0 +1,29 @@
+/* GALPANEL BLE recovery: direct profile selection and bond clearing. */
+
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/bt.h>
+#include <dt-bindings/zmk/keys.h>
+
+/ {
+    keymap {
+        compatible = "zmk,keymap";
+
+        ble_recovery_layer {
+            display-name = "BLE RECOVERY";
+
+            /* D2..D7: select profiles 0..4; D8: clear all bonds;
+             * D14: clear current bond; D18: next profile; D19: no action. */
+            bindings = <
+                &bt BT_SEL 0
+                &bt BT_SEL 1
+                &bt BT_SEL 2
+                &bt BT_SEL 3
+                &bt BT_SEL 4
+                &bt BT_CLR_ALL
+                &bt BT_CLR
+                &bt BT_NXT
+                &none
+            >;
+        };
+    };
+};

@@ -1,0 +1,10 @@
+/* GALPANEL V2.1 BLE recovery overlay. */
+#include "galpanel.overlay"
+
+&galpanel_leds {
+    status = "disabled";
+};
+
+&galpanel_encoder {
+    status = "disabled";
+};

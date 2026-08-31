@@ -1,0 +1,2 @@
+/* Root-level ZMK keymap override for BLE recovery. */
+#include "boards/shields/galpanel/galpanel_ble_recovery.keymap"

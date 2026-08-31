@@ -14,4 +14,7 @@ config SHIELD_GALPANEL_IO_TEST
   def_bool $(shields_list_contains,galpanel_io_test)
 
 config SHIELD_GALPANEL_EC11_TEST
-  def_bool $(shields_list_contains,galpanel_ec11_test)
+    def_bool $(shields_list_contains,galpanel_ec11_test)
+
+config SHIELD_GALPANEL_BLE_RECOVERY
+    def_bool $(shields_list_contains,galpanel_ble_recovery)
