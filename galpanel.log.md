@@ -34,12 +34,12 @@ LED 全亮已通过，但仍需证明每路能独立控制；九路输入和 EC1
 
 - 项目结构验证脚本：通过；
 - `git diff --check`：通过；
-- 三个目标已加入 GitHub Actions 构建矩阵，尚未进行真实云端编译。
+- GitHub Actions Run #6（Run ID `33346436573`）五个构建目标全部成功：`galpanel`、`galpanel_led_test`、`galpanel_led_ind_test`、`galpanel_io_test`、`galpanel_ec11_test`；
+- firmware ZIP SHA-256 为 `3c823b77a0956c4a07ea190d6e4d2d0cf9df3396772b785d7312d6f61599d60f`，与 GitHub artifact digest 匹配；
+- 已下载并核对五个 UF2，保存在 `artifacts/run-33346436573/firmware/`，本轮不向开发板烧录。
 
 ### 尚未完成
 
-- 推送后等待四个测试/正式目标全部云端构建；
-- 若出现 ZMK 版本兼容错误，依据 Actions 日志修正；
 - 用户回家后按 LED 独立、IO、EC11 顺序烧录和实测。
 
 ### 计划提交
