@@ -33,11 +33,12 @@
 - 已确认 Windows 当前枚举出 GALPANEL 的 `HID-compliant mouse` 集合，说明 HID 描述符已经存在；
 - GitHub Actions Run #29（Run ID `33376150467`）五个目标全部构建成功；
 - 已下载新版 `galpanel-ec11-test.uf2`，长度 `404480` bytes，SHA-256 为 `A55E7B06DD8FD946C43FF9028849A5C68BCBA72121ABB55DC731807B12ED7F77`；
-- 当前电脑尚未出现 `NICENANO` Bootloader 盘符，因此尚未复制烧录。
+- 已检测到 `E:` 盘符，卷标为 `NICENANO`；
+- 已复制 `galpanel-ec11-test.uf2` 到 `E:`；
+- 复制后 `E:` 盘符自动消失，确认设备已跳转运行新版应用固件。
 
 ### 尚未完成
 
-- 烧录新版 `galpanel-ec11-test.uf2`；
 - 实物确认顺时针下滚、逆时针上滚，以及快速连续刻度无漏步。
 
 ### 计划提交
