@@ -14,7 +14,9 @@
 - 新增 GALPANEL Zephyr/ZMK 扩展模块，并监听原生 `zmk_endpoint_changed` 事件；
 - 上电后延迟读取一次 `zmk_endpoint_get_selected()`，避免只依赖后续切换事件而漏掉初始状态；
 - 保留现有 SYS 双击 `OUT_TOG`，切换 USB/BLE 后 AUX 会跟随实际端点变化；
-- 更新正式 shield 配置、LED 注释和 README。
+- 更新正式 shield 配置、LED 注释和 README；
+- GitHub Actions Run #43（Run ID `33406845357`）全部六个目标构建成功；
+- 下载并烧录新的正式 `galpanel.uf2`，长度 `412672` bytes，SHA-256 为 `B8B437328FB7E8D6858F10F3DA48C65409650FCB99A9F0F2CB46181403844C17`。
 
 ### 为什么这么做
 
@@ -31,19 +33,19 @@
 
 - 对照固定版本 ZMK 源码确认 `zmk_endpoint_changed`、`zmk_endpoint_get_selected()` 和 `ZMK_TRANSPORT_USB/BLE` 接口存在；
 - 项目静态检查与 `git diff --check` 通过；
-- 等待 GitHub Actions 云端编译和实物烧录验证。
+- GitHub Actions Run #43 的正式固件和五个诊断固件均构建成功；
+- 烧录前确认 `E:` 卷标为 `NICENANO`、Board-ID 为 `nRF52840-nicenano`；
+- UF2 复制后盘符自动消失，Windows 重新枚举出 GALPANEL USB HID 与既有 BLE 设备。
 
 ### 尚未完成
 
-- GitHub Actions 编译；
 - 烧录后验证：USB 亮、BLE 灭、SYS 双击时随实际端点切换；
 - LINK 绿灯连接状态、INFO Profile 闪烁、FN 层和 WARN 状态。
 
-### 计划提交
+### 关联提交
 
-```text
-feat: indicate active endpoint with AUX LED
-```
+- `a97d740 feat: indicate active endpoint with AUX LED`
+- `3abd577 build: expose GALPANEL Zephyr module`
 
 ---
 
