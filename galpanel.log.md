@@ -6,6 +6,48 @@
 
 ---
 
+## 2026-08-31 - 烧录修复版 LED_IND_TEST
+
+### 本次完成
+
+- Run #9（Run ID `33370272455`）正式、LED、IO、EC11 五个构建目标全部成功；
+- 新 `galpanel-led-ind-test.uf2` 使用 `config/galpanel_led_ind_test.keymap`，避免再次加载正式 `galpanel.keymap`；
+- 核验新 UF2：392704 字节、767 个 512 字节块，SHA-256 `cba5d223ab0b5dd4bafa191c369f8885a7ea7cf79864bfe17c3f569a29dd8092`；
+- 确认 `E: NICENANO` 的 Board-ID 为 `nRF52840-nicenano` 后完成烧录；
+- 烧录后盘符自动消失，确认应用重启。
+
+### 为什么这么做
+
+旧版虽然 LED HID 指示位正常，但 keymap 选中了正式层，导致中机械键同时发送 Caps Lock 和 `A`。本版已修复 ZMK keymap 优先级，并将测试键值改为有效的 `KP_NUMLOCK/CAPSLOCK/SCROLLLOCK`。
+
+### 对后续的好处
+
+- 中机械键不再混入正式宏，LED 独立控制结果可信；
+- 同一根因已同时修复 IO_TEST 和 EC11_TEST 的 keymap 选择；
+- 后续测试可按设备名 `GP LED IND` 和实际输出行为双重确认固件版本。
+
+### 本次验证
+
+- 云端构建：全部通过；
+- UF2 格式和摘要：通过；
+- 目标盘符/Board-ID：通过；
+- 修复版烧录：完成；
+- 等待用户确认中机械键不再输出 `a`。
+
+### 尚未完成
+
+- 用户实测 INFO/LINK/FN 三路独立键控；
+- WARN/AUX HID 输出工具验证；
+- 转入 `galpanel-io-test.uf2`。
+
+### 计划提交
+
+```text
+test: flash fixed LED indicator keymap
+```
+
+---
+
 ## 2026-08-31 - 修复诊断固件加载正式 keymap 的问题
 
 ### 本次完成
