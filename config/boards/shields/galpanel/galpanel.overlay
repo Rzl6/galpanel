@@ -71,8 +71,8 @@
     };
 
     /*
-     * These nodes document the V2.1 LED GPIOs. The first software milestone
-     * does not yet drive status animations; a later event-listener module will.
+     * These nodes document the V2.1 LED GPIOs. AUX is now driven by the
+     * endpoint listener; the other status animations remain future work.
      * The physical R_LED_EN and LED_GND common disconnect remain hardware-only.
      */
     galpanel_leds: galpanel_leds {
@@ -100,7 +100,7 @@
 
         led_aux: led_aux {
             gpios = <&pro_micro 0 GPIO_ACTIVE_HIGH>;
-            label = "GALPANEL AUX BLUE DNP";
+            label = "GALPANEL AUX BLUE";
         };
     };
 };

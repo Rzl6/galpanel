@@ -31,9 +31,10 @@ shield: galpanel
 - 基础层和 Fn 层；
 - 鼠标滚轮、音量键、BLE Profile 和 USB/BLE 输出切换；
 - QSAVE、QLOAD、Win+D 的双击保护；
-- 5 路 LED 的硬件 GPIO 定义。
+- 5 路 LED 的硬件 GPIO 定义；
+- AUX 蓝灯显示当前实际输出端点：亮为 USB，灭为 BLE 或尚未连接。
 
-LED 的状态动画、自检、Fn 超时退出和 SYS 长按清除配对仍属于后续阶段。
+LINK/INFO/FN/WARN 的状态动画、自检、Fn 超时退出和 SYS 长按清除配对仍属于后续阶段。
 
 ## 最省事的编译方式
 
@@ -66,4 +67,3 @@ powershell -ExecutionPolicy Bypass -File .\scripts\check-environment.ps1
 3. 新增知识时更新 `学习日志.md`；
 4. 检查 `git diff` 和 `git status`；
 5. 创建内容明确的 Git 提交。
-

@@ -1,0 +1,14 @@
+# Copyright (c) 2026 GALPANEL contributors
+# SPDX-License-Identifier: MIT
+
+menu "GALPANEL features"
+
+config GALPANEL_ENDPOINT_LED
+    bool "Use AUX LED to show the active output endpoint"
+    depends on SHIELD_GALPANEL
+    default y
+    help
+      Turn the AUX LED on while the currently selected HID endpoint is USB.
+      Turn it off while the selected endpoint is BLE or no endpoint is ready.
+
+endmenu

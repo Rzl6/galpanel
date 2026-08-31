@@ -6,6 +6,47 @@
 
 ---
 
+## 2026-08-31 - AUX 蓝灯显示当前 USB/BLE 输出端点
+
+### 本次完成
+
+- 将 AUX 蓝灯定义为正式固件的输出端点指示灯：亮表示当前 HID 报告实际发送到 USB，灭表示当前端点为 BLE 或尚无可用端点；
+- 新增 GALPANEL Zephyr/ZMK 扩展模块，并监听原生 `zmk_endpoint_changed` 事件；
+- 上电后延迟读取一次 `zmk_endpoint_get_selected()`，避免只依赖后续切换事件而漏掉初始状态；
+- 保留现有 SYS 双击 `OUT_TOG`，切换 USB/BLE 后 AUX 会跟随实际端点变化；
+- 更新正式 shield 配置、LED 注释和 README。
+
+### 为什么这么做
+
+只检测 USB 供电会把“插电脑充电”和“按键实际走 USB”混为一谈。ZMK 已经维护了当前选择的 HID endpoint，因此直接显示 endpoint 才能回答用户真正关心的问题：按键现在发送给 USB 主机还是蓝牙主机。
+
+### 对后续的好处
+
+- 同时连接 USB 和 BLE 时，可以直接确认当前输入流向；
+- 插普通充电器而没有 USB HID 数据连接时，不会误显示为 USB 模式；
+- 插电脑充电导致 ZMK 自动选择 USB 时，AUX 会如实点亮，用户可以用 SYS 双击切回 BLE并看到灯熄灭；
+- 后续 LINK、INFO、FN、WARN 可以继续复用同一事件监听模块，不必把状态逻辑塞进 keymap。
+
+### 本次验证
+
+- 对照固定版本 ZMK 源码确认 `zmk_endpoint_changed`、`zmk_endpoint_get_selected()` 和 `ZMK_TRANSPORT_USB/BLE` 接口存在；
+- 项目静态检查与 `git diff --check` 通过；
+- 等待 GitHub Actions 云端编译和实物烧录验证。
+
+### 尚未完成
+
+- GitHub Actions 编译；
+- 烧录后验证：USB 亮、BLE 灭、SYS 双击时随实际端点切换；
+- LINK 绿灯连接状态、INFO Profile 闪烁、FN 层和 WARN 状态。
+
+### 计划提交
+
+```text
+feat: indicate active endpoint with AUX LED
+```
+
+---
+
 ## 2026-08-31 - 清除 BLE bond 后刷回正式固件
 
 ### 本次完成
