@@ -1,0 +1,5 @@
+/*
+ * Root-level keymap override required by ZMK keymap search priority.
+ * The implementation stays next to the diagnostic shield definition.
+ */
+#include "boards/shields/galpanel/galpanel_led_test.keymap"

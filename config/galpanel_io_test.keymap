@@ -1,0 +1,2 @@
+/* Root-level ZMK keymap override for the nine-key GPIO diagnostic. */
+#include "boards/shields/galpanel/galpanel_io_test.keymap"

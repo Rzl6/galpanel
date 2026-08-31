@@ -29,7 +29,11 @@ $requiredFiles = @(
     'config/boards/shields/galpanel/galpanel_ec11_test.overlay',
     'config/boards/shields/galpanel/galpanel_ec11_test.keymap',
     'config/boards/shields/galpanel/galpanel_ec11_test.conf',
-    'config/boards/shields/galpanel/galpanel_ec11_test.zmk.yml'
+    'config/boards/shields/galpanel/galpanel_ec11_test.zmk.yml',
+    'config/galpanel_led_test.keymap',
+    'config/galpanel_led_ind_test.keymap',
+    'config/galpanel_io_test.keymap',
+    'config/galpanel_ec11_test.keymap'
 )
 
 $failed = $false
@@ -53,7 +57,10 @@ $checks = @(
     @{ File = 'config/boards/shields/galpanel/galpanel_led_test.overlay'; Pattern = 'output-high'; Name = 'LED test outputs are forced high' }
     @{ File = 'config/boards/shields/galpanel/galpanel_led_ind_test.overlay'; Pattern = 'zmk,indicator-leds'; Name = 'LED indicator test mapping' }
     @{ File = 'config/boards/shields/galpanel/galpanel_io_test.keymap'; Pattern = '&kp N9'; Name = 'IO test nine-key map' }
-    @{ File = 'config/boards/shields/galpanel/galpanel_ec11_test.keymap'; Pattern = 'sensor-bindings'; Name = 'EC11 test sensor binding' }
+    @{ File = 'config/boards/shields/galpanel/galpanel_ec11_test.keymap'; Pattern = 'sensor-bindings'; Name = 'EC11 test sensor binding' },
+    @{ File = 'config/galpanel_led_ind_test.keymap'; Pattern = 'galpanel_led_ind_test.keymap'; Name = 'LED test root keymap override' },
+    @{ File = 'config/galpanel_io_test.keymap'; Pattern = 'galpanel_io_test.keymap'; Name = 'IO test root keymap override' },
+    @{ File = 'config/galpanel_ec11_test.keymap'; Pattern = 'galpanel_ec11_test.keymap'; Name = 'EC11 test root keymap override' }
 )
 
 foreach ($check in $checks) {

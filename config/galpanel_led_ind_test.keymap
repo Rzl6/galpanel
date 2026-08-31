@@ -1,0 +1,5 @@
+/*
+ * Root-level keymap override required by ZMK keymap search priority.
+ * Without this file, the parent directory name selects galpanel.keymap first.
+ */
+#include "boards/shields/galpanel/galpanel_led_ind_test.keymap"

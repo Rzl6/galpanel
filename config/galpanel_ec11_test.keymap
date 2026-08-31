@@ -1,0 +1,2 @@
+/* Root-level ZMK keymap override for the EC11 diagnostic. */
+#include "boards/shields/galpanel/galpanel_ec11_test.keymap"

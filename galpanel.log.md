@@ -6,6 +6,48 @@
 
 ---
 
+## 2026-08-31 - 修复诊断固件加载正式 keymap 的问题
+
+### 本次完成
+
+- 根据用户实测确认 `GP LED IND` 中 LED 指示功能正常，但中机械键同时输出 `A/a`；
+- 检查已烧录 UF2，发现同时包含正式层名 `GALGAME/FN`，证明诊断 keymap 未被选中；
+- 阅读 ZMK `post_boards_shields.cmake`，确认 keymap 搜索会先使用 shield 目录名 `galpanel`，因此优先找到 `galpanel.keymap`；
+- 在 `config/` 根目录新增四个诊断目标的专用 keymap 覆盖文件，使精确测试目标在进入 shield 目录前被选中；
+- 扩展项目验证脚本，强制检查这些根目录覆盖文件。
+
+### 为什么这么做
+
+ZMK 的 overlay、Kconfig 和 keymap 并非使用完全相同的文件选择路径。此前测试 overlay 和设备名正确生效，但 keymap 搜索先命中了父目录中的正式 `galpanel.keymap`，于是形成“测试 LED + 正式按键”的混合固件。仅重复烧录同一 UF2 无法解决源码选择错误。
+
+### 对后续的好处
+
+- LED_IND_TEST 的三个机械键将真正发送 Num/Caps/Scroll Lock，不再附带正式 A/Enter 等行为；
+- IO_TEST 将真正输出 `1～9`，避免之后再次把正式宏误认为测试结果；
+- EC11_TEST 将加载专用 Up/Down 旋转绑定；
+- 根目录覆盖文件清晰记录了 ZMK 的 keymap 优先级要求，新增诊断固件可复用同一结构。
+
+### 本次验证
+
+- 用户实物证据：Caps Lock 指示灯响应与中键输出 `a` 同时存在；
+- 旧 UF2 字符串包含 `GP LED IND` 和正式层名 `GALGAME/FN`；
+- 已定位 ZMK CMake keymap 候选顺序；
+- 等待修复后的云端构建与 UF2 内容复核。
+
+### 尚未完成
+
+- 云端重新构建所有目标；
+- 确认新 LED_IND_TEST UF2 包含 `LED IND TEST` 且不包含 `GALGAME`；
+- 重新烧录并实测中机械键不再输出 `a`。
+
+### 计划提交
+
+```text
+fix: select diagnostic keymaps before formal keymap
+```
+
+---
+
 ## 2026-08-31 - 重新烧录 LED 独立测试固件
 
 ### 本次完成
