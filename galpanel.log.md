@@ -6,6 +6,45 @@
 
 ---
 
+## 2026-08-31 - LED 独立控制前三路测试进展
+
+### 本次完成
+
+- 用户确认 Num Lock 对应的 INFO 蓝灯正常响应；
+- 用户确认 Caps Lock 对应的 LINK 绿灯正常响应；
+- 用户电脑没有独立的 Scroll Lock 按键，补充说明由 GALPANEL 右机械键发送 Scroll Lock。
+
+### 为什么这么做
+
+测试固件的三个第一排机械键已经分别绑定 Num Lock、Caps Lock、Scroll Lock，因此不需要主机键盘物理存在这些按键。右机械键本身就是 Scroll Lock 的测试触发器。
+
+### 对后续的好处
+
+- 不依赖电脑键盘布局即可完成前三路 LED 独立控制验证；
+- INFO 和 LINK 已经确认软件指示链路与硬件支路独立正常；
+- FN 只需按 GALPANEL 右机械键即可继续验证。
+
+### 本次验证
+
+- INFO 蓝：通过；
+- LINK 绿：通过；
+- FN 白：等待用户按 GALPANEL 右机械键验证；
+- WARN 红/AUX 蓝：仍需 HID Compose/Kana 输出工具或后续专用测试方案。
+
+### 尚未完成
+
+- 右机械键 → Scroll Lock → FN 白灯开关；
+- WARN、AUX 独立控制；
+- 刷入 `galpanel-io-test.uf2`。
+
+### 计划提交
+
+```text
+docs: record initial LED indicator results
+```
+
+---
+
 ## 2026-08-31 - 烧录 LED 独立控制测试固件
 
 ### 本次完成
