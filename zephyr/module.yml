@@ -1,0 +1,4 @@
+name: galpanel_status
+build:
+  cmake: .
+  kconfig: Kconfig

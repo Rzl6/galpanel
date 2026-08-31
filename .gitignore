@@ -14,6 +14,9 @@
 /modules/
 /tools/
 /zephyr/
+!/zephyr/
+/zephyr/*
+!/zephyr/module.yml
 /bootloader/
 /zmk/
 
