@@ -10,8 +10,8 @@
         led_ind_test_layer {
             display-name = "LED IND TEST";
             bindings = <
-                &kp NUMLOCK &kp CAPSLOCK &kp SCROLLLOCK
-                &kp COMPOSE &kp KANA &none
+                &kp KP_NUMLOCK &kp CAPSLOCK &kp SCROLLLOCK
+                &none &none &none
                 &none &none &none
             >;
         };

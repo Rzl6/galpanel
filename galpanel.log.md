@@ -38,6 +38,7 @@ ZMK 的 overlay、Kconfig 和 keymap 并非使用完全相同的文件选择路�
 
 - 将 HID 指示位改为其明确的数值位掩码 `1/2/4/8/16`，避免 overlay 预处理时的表达式解析问题；
 - 将 EC11_TEST 改为 ZMK 官方常用的直接 `&inc_dec_kp DOWN UP` 绑定，移除不必要的自定义 sensor-rotate 节点。
+- 将 LED_IND_TEST 键值修正为 `KP_NUMLOCK/CAPSLOCK/SCROLLLOCK`；Compose/Kana 不是普通键值，其余按键保持 `&none`。
 
 ### 尚未完成
 
