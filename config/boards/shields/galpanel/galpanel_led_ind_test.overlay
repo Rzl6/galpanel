@@ -9,7 +9,6 @@
  * SPDX-License-Identifier: MIT
  */
 
-#include <dt-bindings/zmk/hid_indicators.h>
 #include "galpanel.overlay"
 
 &galpanel_encoder {
@@ -25,27 +24,27 @@
         compatible = "zmk,indicator-leds";
 
         info_indicator: info {
-            indicator = <HID_INDICATOR_NUM_LOCK>;
+            indicator = <1>;
             leds = <&led_info>;
         };
 
         link_indicator: link {
-            indicator = <HID_INDICATOR_CAPS_LOCK>;
+            indicator = <2>;
             leds = <&led_link>;
         };
 
         fn_indicator: fn {
-            indicator = <HID_INDICATOR_SCROLL_LOCK>;
+            indicator = <4>;
             leds = <&led_fn>;
         };
 
         warn_indicator: warn {
-            indicator = <HID_INDICATOR_COMPOSE>;
+            indicator = <8>;
             leds = <&led_warn>;
         };
 
         aux_indicator: aux {
-            indicator = <HID_INDICATOR_KANA>;
+            indicator = <16>;
             leds = <&led_aux>;
         };
     };

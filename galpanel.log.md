@@ -34,6 +34,11 @@ ZMK 的 overlay、Kconfig 和 keymap 并非使用完全相同的文件选择路�
 - 已定位 ZMK CMake keymap 候选顺序；
 - 等待修复后的云端构建与 UF2 内容复核。
 
+### 修复动作
+
+- 将 HID 指示位改为其明确的数值位掩码 `1/2/4/8/16`，避免 overlay 预处理时的表达式解析问题；
+- 将 EC11_TEST 改为 ZMK 官方常用的直接 `&inc_dec_kp DOWN UP` 绑定，移除不必要的自定义 sensor-rotate 节点。
+
 ### 尚未完成
 
 - 云端重新构建所有目标；

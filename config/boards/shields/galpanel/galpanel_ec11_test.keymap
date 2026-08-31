@@ -4,15 +4,6 @@
 #include <dt-bindings/zmk/keys.h>
 
 / {
-    behaviors {
-        encoder_test: encoder_test {
-            compatible = "zmk,behavior-sensor-rotate";
-            #sensor-binding-cells = <0>;
-            bindings = <&inc_dec_kp UP DOWN>;
-            tap-ms = <5>;
-        };
-    };
-
     keymap {
         compatible = "zmk,keymap";
 
@@ -27,7 +18,7 @@
                 &kp N7 &kp N8 &kp N9
             >;
 
-            sensor-bindings = <&encoder_test>;
+            sensor-bindings = <&inc_dec_kp DOWN UP>;
         };
     };
 };
