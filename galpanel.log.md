@@ -37,11 +37,11 @@ Windows 显示“无法连接，请尝试重新连接”通常还包含主机旧
 - `validate-project.ps1` 通过；
 - GitHub Actions Run #50/#51（提交 `f7c3665`）均构建成功；
 - 下载正式 `galpanel.uf2`，长度 `414208` bytes，SHA-256 为 `88064C132A6214FCA6F92234F617FD5316076C50BBE0ADB75254DB6B5F824C0C`；
-- 当前尚未检测到 `NICENANO` 可移动盘，等待开发板进入 UF2 Bootloader 后烧录。
+- 已检测到 `E:` / `NICENANO`，并确认 `Board-ID: nRF52840-nicenano`；
+- 已将该 UF2 复制到 `E:`，盘符随后自动消失，确认 Bootloader 接受并重启正式固件。
 
 ### 尚未完成
 
-- 尚未烧录本次修复的正式 UF2；
 - 尚需实测 LINK、INFO、SYS 6 秒清除和 INFO 10 秒确认；
 - 清除后需在 Windows 删除对应的 `GALPANEL N` 条目再重新配对，不能只点击旧条目的“连接”。
 
