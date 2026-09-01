@@ -31,6 +31,7 @@ LOG_MODULE_REGISTER(galpanel_status, CONFIG_ZMK_LOG_LEVEL);
 #define GALPANEL_SYS_POSITION 5
 #define GALPANEL_STATUS_PERIOD K_MSEC(150)
 #define GALPANEL_SAFETY_HOLD_MS 6000
+#define GALPANEL_SAFETY_WARN_START_MS 5000
 #define GALPANEL_SYS_TAP_TERM_MS 300
 
 static const struct gpio_dt_spec led_link = GPIO_DT_SPEC_GET(DT_NODELABEL(led_link), gpios);
@@ -96,9 +97,14 @@ static void write_status_leds(void) {
      * longer, unambiguous ten-second acknowledgement. */
     set_led(&led_info, info_flash_on || now < info_on_until);
 
-    /* WARN is reserved for the safety test and remains off otherwise. */
-    const bool warn_on = safety_held ? (safety_cleared || (k_uptime_get() / 250) % 2)
-                                     : (k_uptime_get() < safety_ack_until);
+    /* A normal SYS tap/double-tap is not a warning. Only show the red LED
+     * during the final second of the guarded destructive hold, or for the
+     * short acknowledgement after a bond was actually cleared. */
+    const int64_t held_ms = safety_held ? now - safety_hold_started : 0;
+    const bool warn_on = (safety_held &&
+                          (safety_cleared || held_ms >= GALPANEL_SAFETY_WARN_START_MS) &&
+                          (safety_cleared || (now / 250) % 2)) ||
+                         (!safety_held && now < safety_ack_until);
     set_led(&led_warn, warn_on);
 }
 
