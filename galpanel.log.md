@@ -6,6 +6,42 @@
 
 ---
 
+## 2026-09-01 - 找回 Windows 历史可用固件并识别基线测试残留变量
+
+### 本次完成
+
+- 查阅 Git 历史，确认 2026-07-26 的提交 `d24d7f6` 记录了这台 Windows 对 `GALPANEL` 的首次配对成功，以及 D2 BLE Ctrl 输入成功；
+- 找到对应的 Run #3 真实 UF2：`artifacts/firmware-run-3/galpanel.uf2`，SHA-256 为 `6805B40DE4D7214ABE371D7DC0138B99BB5AB18E32165ED1B43DC92ED017F5E4`；
+- 用户截图确认修正版基线实际广播名已经是 `GP WIN BLE`，但 Windows 仍提示无法连接；因此动态 Profile 名称、状态 LED 和 SYS 自定义代码不再是首要嫌疑；
+- 识别出基线测试仍未控制的变量：ZMK BLE Profile/bond 存储位于重刷 UF2 不会自动清除的设置区，手机已绑定当前 Profile 时，Windows 对同一 Profile 的新配对会被 ZMK 拒绝。
+
+### 为什么这么做
+
+“历史上这台 Windows 成功配对过”比泛泛的兼容性猜测更可靠。Run #3 提供了可复现的已知可用程序基线。当前静态名称固件能显示 `GP WIN BLE`，证明它的名称覆盖已生效；但没有先切换到确定空闲的 Profile，不能据此断言 Windows 蓝牙适配器或当前 ZMK 基线损坏。
+
+### 对后续的好处
+
+- 下一次测试可以只改变两个明确变量：Profile 是否干净、固件是否为历史可用 Run #3；
+- 无需继续在正式灯效/动态命名代码上做无效修改；
+- 可采用 Profile 5 作为独立 Windows 测试槽，保留 Profile 1～4 的现有配对数据。
+
+### 本次验证
+
+- `d24d7f6` 历史日志明确记录 Windows 发现 `GALPANEL`、首次配对通过、BLE 左 Ctrl 通过；
+- 本地 Run #3 UF2 的 SHA-256 与当时工作日志完全一致；
+- 用户当前截图显示 `GP WIN BLE`，证明修正版基线实际在运行。
+
+### 尚未完成
+
+- 需获得用户许可后清除 Profile 5 的 bond（仅该 Profile）并刷入 Run #3，形成干净的 Windows 回归测试；
+- 若干净 Profile 5 + Run #3 仍失败，再将问题定向到 Windows 蓝牙服务/适配器驱动，而不是 GALPANEL 应用逻辑。
+
+### 关联提交
+
+待提交：`docs: record Windows BLE regression baseline`
+
+---
+
 ## 2026-09-01 - 增加 Windows 静态名称 BLE 基线固件
 
 ### 本次完成
