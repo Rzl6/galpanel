@@ -6,6 +6,49 @@
 
 ---
 
+## 2026-09-01 - 修复正式固件状态模块并启用 SYS 清除配对
+
+### 本次完成
+
+- 定位到正式 `galpanel` Shield 不满足 `GALPANEL_STATUS_INDICATORS` 的 Kconfig 依赖，导致状态模块虽然写入 `.conf`，却没有进入正式固件；
+- 将正式 Shield 加入状态模块和 SYS 安全逻辑的 Kconfig 依赖，并在正式配置中启用 SYS 安全逻辑；
+- 正式 SYS 改由状态模块独占：单击切换 Profile、300 ms 内双击切换 USB/BLE、按住约 6 秒清除当前 Profile bond；
+- LINK 改为仅表达 BLE 状态：USB 实际输出时熄灭；BLE 未连接时约 1 秒周期慢闪；BLE 连接后亮 30 秒再熄灭；
+- INFO 恢复 Profile 1～5 对应 1～5 次闪烁；
+- 清除当前 Profile bond 后，INFO 持续亮 10 秒作为明确确认；长按期间 WARN 红灯继续闪烁；
+- 更新《使用说明》的正式行为和恢复流程。
+
+### 为什么这么做
+
+用户实测同时出现 LINK 不闪、INFO 不报告 Profile、SYS 长按无效，这三个现象由同一个构建配置错误解释。Profile 名称模块不受该依赖限制，所以 Windows 仍能看到 `GALPANEL 1/2`，但并不代表状态和安全模块已经编入固件。修正编译依赖比继续调整灯效定时更直接。
+
+Windows 显示“无法连接，请尝试重新连接”通常还包含主机旧 bond 与设备当前 bond 不一致。正式固件必须先提供可确认的设备端清除动作，之后才能进行双端删除和重新配对。
+
+### 对后续的好处
+
+- 正式固件与已验证的状态/安全测试模块使用同一份实现，不再出现“测试固件正常、正式固件缺模块”；
+- 用户无需为日常单 Profile 恢复反复刷入维修固件；
+- INFO 10 秒确认可以明确区分“还在计时”和“已经执行清除”；
+- LINK 在有线输出时不闪，避免把 USB 正常状态误判为 BLE 等待连接。
+
+### 本次验证
+
+- 对照固定 ZMK 源码确认 `zmk_ble_clear_bonds()` 只清除当前活动 Profile，并立即刷新广播；
+- `validate-project.ps1` 通过；
+- 待 GitHub Actions 构建正式 UF2 并完成实物烧录验证。
+
+### 尚未完成
+
+- GitHub 当前网络连接异常，尚未取得本次修复的云端构建结果；
+- 尚需实测 LINK、INFO、SYS 6 秒清除和 INFO 10 秒确认；
+- 清除后需在 Windows 删除对应的 `GALPANEL N` 条目再重新配对，不能只点击旧条目的“连接”。
+
+### 关联提交
+
+待提交：`fix: enable final status and bond recovery controls`
+
+---
+
 ## 2026-09-01 - 最终固件增加 Profile 名称和 LINK 节能策略
 
 ### 本次完成

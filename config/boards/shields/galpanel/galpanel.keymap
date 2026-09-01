@@ -41,18 +41,14 @@
             bindings = <&none>, <&kp LG(D)>;
         };
 
-        /*
-         * Initial safe SYS behavior:
-         * - single tap: next BLE profile
-         * - double tap: toggle USB/BLE output
-         * Long-press status and pairing clear are deferred until LED feedback
-         * and destructive-action confirmation are implemented together.
-         */
+        /* SYS is handled by the status module so tap, double-tap and the
+         * guarded six-second bond-clear action cannot be duplicated by a
+         * normal key binding. */
         td_sys: tap_dance_sys {
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
             tapping-term-ms = <300>;
-            bindings = <&bt BT_NXT>, <&out OUT_TOG>;
+            bindings = <&none>, <&none>;
         };
 
         scroll_encoder: scroll_encoder {

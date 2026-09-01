@@ -1,5 +1,5 @@
 /*
- * GALPANEL status and safety diagnostic indicators.
+ * GALPANEL status indicators and guarded SYS controls.
  *
  * The status test intentionally uses a small polling loop. ZMK exposes the
  * selected endpoint and BLE/profile state as stable APIs, while polling also
@@ -48,6 +48,7 @@ static int64_t safety_ack_until;
 static uint8_t safety_tap_count;
 static bool last_ble_connected;
 static int64_t link_led_until;
+static int64_t info_on_until;
 
 static void status_work_handler(struct k_work *work);
 static K_WORK_DELAYABLE_DEFINE(status_work, status_work_handler);
@@ -68,7 +69,9 @@ static void write_status_leds(void) {
     const bool fn_active = zmk_keymap_layer_active(GALPANEL_FN_LAYER);
     const bool usb_selected = zmk_endpoint_get_selected().transport == ZMK_TRANSPORT_USB;
 
-    /* LINK: blink while waiting; final firmware shows a 30 s connection pulse. */
+    /* LINK is a BLE indicator. USB use is deliberately quiet; when BLE is
+     * selected but not connected it slow-blinks so pairing/reconnect remains
+     * visible without confusing it with the board's power LED. */
     const int64_t now = k_uptime_get();
     if (ble_connected && !last_ble_connected) {
         link_led_until = now + CONFIG_GALPANEL_LINK_ON_MS;
@@ -76,7 +79,9 @@ static void write_status_leds(void) {
     last_ble_connected = ble_connected;
 
     bool link_on;
-    if (!ble_connected) {
+    if (usb_selected) {
+        link_on = false;
+    } else if (!ble_connected) {
         link_on = (now / 500) % 2;
     } else if (CONFIG_GALPANEL_LINK_ON_MS == 0) {
         link_on = true;
@@ -87,8 +92,9 @@ static void write_status_leds(void) {
     set_led(&led_fn, fn_active);
     set_led(&led_aux, usb_selected);
 
-    /* INFO is a finite profile announcement; it does not own the LED forever. */
-    set_led(&led_info, info_flash_on);
+    /* INFO announces a profile with flashes. A successful bond clear has a
+     * longer, unambiguous ten-second acknowledgement. */
+    set_led(&led_info, info_flash_on || now < info_on_until);
 
     /* WARN is reserved for the safety test and remains off otherwise. */
     const bool warn_on = safety_held ? (safety_cleared || (k_uptime_get() / 250) % 2)
@@ -111,6 +117,7 @@ static void status_work_handler(struct k_work *work) {
 }
 
 static void info_flash_start(uint8_t profile) {
+    info_on_until = 0;
     info_toggle_remaining = (profile + 1) * 2;
     info_flash_on = false;
     k_work_reschedule(&status_work, K_NO_WAIT);
@@ -145,6 +152,7 @@ static void safety_warn_work_handler(struct k_work *work) {
     if (held_ms >= GALPANEL_SAFETY_HOLD_MS && !safety_cleared) {
         zmk_ble_clear_bonds();
         safety_cleared = true;
+        info_on_until = k_uptime_get() + 10000;
         LOG_WRN("Safety test cleared the current BLE profile bond");
     }
 

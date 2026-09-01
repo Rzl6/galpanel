@@ -12,8 +12,8 @@ config GALPANEL_ENDPOINT_LED
       Turn it off while the selected endpoint is BLE or no endpoint is ready.
 
 config GALPANEL_STATUS_INDICATORS
-    bool "Enable GALPANEL status indicator test module"
-    depends on SHIELD_GALPANEL_STATUS_TEST || SHIELD_GALPANEL_SAFETY_TEST
+    bool "Enable GALPANEL status indicators"
+    depends on SHIELD_GALPANEL || SHIELD_GALPANEL_STATUS_TEST || SHIELD_GALPANEL_SAFETY_TEST
     default y
     select GPIO
     help
@@ -39,11 +39,12 @@ config GALPANEL_PROFILE_NAMES
       when the active profile changes.
 
 config GALPANEL_SAFETY_TEST
-    bool "Enable GALPANEL SYS safety test"
-    depends on SHIELD_GALPANEL_SAFETY_TEST
+    bool "Enable guarded GALPANEL SYS controls"
+    depends on SHIELD_GALPANEL || SHIELD_GALPANEL_SAFETY_TEST
     default n
     help
-      Enable the diagnostic long-press on SYS. Holding SYS for six seconds
-      clears the current BLE profile bond and flashes the WARN LED.
+      Own the SYS key so a tap selects the next BLE profile, a double tap
+      toggles USB/BLE output, and a guarded six-second hold clears the current
+      BLE profile bond with LED feedback.
 
 endmenu
