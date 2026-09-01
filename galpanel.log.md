@@ -6,6 +6,49 @@
 
 ---
 
+## 2026-09-01 - 增加状态灯与 SYS 安全行为测试固件
+
+### 本次完成
+
+- 新增 `galpanel-status-test` 构建目标，用于验证 LINK、INFO、FN、AUX 状态灯；
+- 新增 `galpanel-safety-test` 构建目标，用于验证 SYS 单击、双击、长按边界和 WARN 反馈；
+- 新增 GALPANEL Zephyr 状态模块：轮询实际 BLE/Profile/层/endpoint 状态，并监听 Profile 与 layer 事件；
+- 状态测试行为：LINK 未连接慢闪、已连接常亮；INFO 按 Profile 闪烁；FN 随第 1 层状态；AUX 随 USB endpoint；
+- 安全测试行为：SYS 300 ms 内双击切换输出，单击切换 Profile，按住约 6 秒清除当前 Profile bond；
+- 安全测试中，短于 6 秒但超过短按窗口的中断长按不会被误判为单击；
+- 更新 `测试计划.md`，增加 T9 状态灯和 T10 安全行为验收步骤。
+
+### 为什么这么做
+
+最终固件的状态灯和 SYS 长按功能都依赖系统事件，不能只靠 LED_TEST 或 keymap 静态检查确认。单独测试固件可以把状态逻辑、定时器和破坏性操作从正式固件中隔离，先验证边界再合并到产品版本。
+
+### 对后续的好处
+
+- 可以先确认 LED 状态是否与真实 endpoint/Profile/layer 一致；
+- 可以在不改正式固件的情况下验证 SYS 手势，避免误清除日常配对；
+- T9/T10 通过后，正式版本只需复用已验证的状态模块和参数；
+- 测试结果可以直接对应《使用说明》的最终交互定义。
+
+### 本次验证
+
+- `validate-project.ps1` 通过；
+- `git diff --check` 通过；
+- 已核对固定 ZMK 版本提供的 `zmk_ble_active_profile_is_connected()`、`zmk_ble_active_profile_index()`、`zmk_endpoint_get_selected()`、`zmk_keymap_layer_active()` 和 `zmk_ble_clear_bonds()` API；
+- 等待 GitHub Actions 云端编译。
+
+### 尚未完成
+
+- 云端构建两个新测试目标；
+- 烧录 `galpanel-status-test.uf2` 并验证 LED 组合；
+- 烧录 `galpanel-safety-test.uf2` 并验证 SYS 长按清除当前 Profile；
+- 将通过验证的状态模块合并进正式 `galpanel` 固件。
+
+### 关联提交
+
+待提交：`test: add status and safety diagnostic firmware`
+
+---
+
 ## 2026-09-01 - 按实物位置统一侧键命名
 
 ### 本次完成

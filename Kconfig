@@ -11,4 +11,21 @@ config GALPANEL_ENDPOINT_LED
       Turn the AUX LED on while the currently selected HID endpoint is USB.
       Turn it off while the selected endpoint is BLE or no endpoint is ready.
 
+config GALPANEL_STATUS_INDICATORS
+    bool "Enable GALPANEL status indicator test module"
+    depends on SHIELD_GALPANEL_STATUS_TEST || SHIELD_GALPANEL_SAFETY_TEST
+    default y
+    select GPIO
+    help
+      Drive LINK, INFO, FN and AUX from ZMK state and provide the optional
+      WARN long-press safety test.
+
+config GALPANEL_SAFETY_TEST
+    bool "Enable GALPANEL SYS safety test"
+    depends on SHIELD_GALPANEL_SAFETY_TEST
+    default n
+    help
+      Enable the diagnostic long-press on SYS. Holding SYS for six seconds
+      clears the current BLE profile bond and flashes the WARN LED.
+
 endmenu

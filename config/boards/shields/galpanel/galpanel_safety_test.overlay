@@ -1,0 +1,2 @@
+/* GALPANEL SYS long-press and WARN safety test. */
+#include "galpanel.overlay"

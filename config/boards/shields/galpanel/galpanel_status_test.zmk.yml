@@ -1,0 +1,9 @@
+file_format: "1"
+id: galpanel_status_test
+name: GALPANEL STATUS TEST
+type: shield
+requires: [pro_micro]
+features:
+  - keys
+  - leds
+  - encoder

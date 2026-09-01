@@ -1,0 +1,2 @@
+/* Root-level ZMK keymap override for the status diagnostic. */
+#include "boards/shields/galpanel/galpanel.keymap"

@@ -17,3 +17,9 @@ include:
   - board: nice_nano//zmk
     shield: galpanel_ble_recovery
     artifact-name: galpanel-ble-recovery
+  - board: nice_nano//zmk
+    shield: galpanel_status_test
+    artifact-name: galpanel-status-test
+  - board: nice_nano//zmk
+    shield: galpanel_safety_test
+    artifact-name: galpanel-safety-test

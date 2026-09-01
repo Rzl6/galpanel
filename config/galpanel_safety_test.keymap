@@ -1,0 +1,68 @@
+/*
+ * GALPANEL safety diagnostic.
+ * SYS is owned by the safety module so it can distinguish tap, double tap,
+ * and the six-second destructive hold.
+ */
+
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/keys.h>
+#define ZMK_POINTING_DEFAULT_SCRL_VAL 100
+#include <dt-bindings/zmk/pointing.h>
+
+#define FN 1
+
+/ {
+    behaviors {
+        td_qsave_safety: tap_dance_qsave_safety {
+            compatible = "zmk,behavior-tap-dance";
+            #binding-cells = <0>;
+            tapping-term-ms = <300>;
+            bindings = <&none>, <&kp F11>;
+        };
+
+        td_qload_safety: tap_dance_qload_safety {
+            compatible = "zmk,behavior-tap-dance";
+            #binding-cells = <0>;
+            tapping-term-ms = <300>;
+            bindings = <&none>, <&kp F12>;
+        };
+
+        td_desktop_safety: tap_dance_desktop_safety {
+            compatible = "zmk,behavior-tap-dance";
+            #binding-cells = <0>;
+            tapping-term-ms = <300>;
+            bindings = <&none>, <&kp LG(D)>;
+        };
+
+        scroll_encoder_safety: scroll_encoder_safety {
+            compatible = "zmk,behavior-sensor-rotate";
+            #sensor-binding-cells = <0>;
+            bindings = <&msc SCRL_UP>, <&msc SCRL_DOWN>;
+            tap-ms = <20>;
+        };
+    };
+
+    keymap {
+        compatible = "zmk,keymap";
+
+        base_layer {
+            display-name = "SAFETY";
+            bindings = <
+                &kp LCTRL &kp A &kp ENTER
+                &td_qsave_safety &td_desktop_safety &none
+                &tog FN &td_qload_safety &kp ESC
+            >;
+            sensor-bindings = <&scroll_encoder_safety>;
+        };
+
+        fn_layer {
+            display-name = "FN";
+            bindings = <
+                &kp S &kp R &kp L
+                &td_qsave_safety &td_desktop_safety &none
+                &tog FN &td_qload_safety &kp C_MUTE
+            >;
+            sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP>;
+        };
+    };
+};

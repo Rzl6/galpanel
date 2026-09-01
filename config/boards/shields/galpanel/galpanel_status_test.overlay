@@ -1,0 +1,2 @@
+/* GALPANEL state LED event and polling test. */
+#include "galpanel.overlay"
