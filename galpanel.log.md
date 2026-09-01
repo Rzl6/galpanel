@@ -69,11 +69,10 @@ Windows 的“无法连接，请尝试重新连接”既可能由旧配对缓存
 - 对照 ZMK 官方 Bluetooth Configuration：该项用于规避 Windows 的 GATT/battery notification 兼容问题；
 - GitHub Actions Run #55（提交 `54a9265`）构建成功；
 - 下载正式 `galpanel.uf2`，长度 `413696` bytes，SHA-256 为 `49625D62E66C75ECA0ACF035568437FFC659CF4C3BEFBE534D3BEABA9FB43874`；
-- 当前未检测到 `NICENANO` 盘符，尚未烧录，等待开发板进入 UF2 Bootloader。
+- 已确认 `E:` / `NICENANO` 的 `Board-ID: nRF52840-nicenano`，并完成 UF2 复制；盘符自动消失，确认 Bootloader 接受固件并重启。
 
 ### 尚未完成
 
-- 尚未烧录本次 Windows 兼容固件；
 - 尚未完成静态名称 BLE 基线 A/B 测试；
 - 需确认 Windows 使用的蓝牙适配器和驱动版本，作为软件基线固件之后的下一层排查。
 
