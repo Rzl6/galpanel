@@ -31,7 +31,7 @@
 - 已核对该 Shield 不满足状态/动态名称模块的 Kconfig 依赖，因此不会链接 `galpanel_status.c` 或 `galpanel_profile_name.c`；
 - GitHub Actions Run #58（提交 `243b099`）构建成功；
 - 下载 `galpanel-win-ble-baseline.uf2`，长度 `391168` bytes，SHA-256 为 `5E5AAD9F9DB781EB6332ED828B07153CCBB2300B28F8ACF928D1DD8B6204D3E1`；
-- 当前未检测到 `NICENANO` 盘符，等待进入 UF2 Bootloader 后烧录。
+- 已确认 `E:` / `NICENANO` 的 `Board-ID: nRF52840-nicenano`，并完成 UF2 复制；盘符自动消失，确认基线固件被接受并重启。
 
 ### 尚未完成
 
