@@ -12,3 +12,7 @@ endif()
 if(CONFIG_GALPANEL_PROFILE_NAMES)
   target_sources(app PRIVATE src/galpanel_profile_name.c)
 endif()
+
+if(CONFIG_SHIELD_GALPANEL_WIN_BLE_BASELINE)
+  target_sources(app PRIVATE src/galpanel_win_ble_baseline.c)
+endif()

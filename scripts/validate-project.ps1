@@ -43,6 +43,7 @@ $requiredFiles = @(
     'config/boards/shields/galpanel/galpanel_win_ble_baseline.zmk.yml',
     'src/galpanel_status.c',
     'src/galpanel_profile_name.c',
+    'src/galpanel_win_ble_baseline.c',
     'config/galpanel_led_test.keymap',
     'config/galpanel_led_ind_test.keymap',
     'config/galpanel_io_test.keymap',
@@ -81,7 +82,8 @@ $checks = @(
     @{ File = 'config/galpanel_safety_test.keymap'; Pattern = 'six-second destructive hold'; Name = 'safety test root keymap override' },
     @{ File = 'build.yaml'; Pattern = 'shield: galpanel_win_ble_baseline'; Name = 'Windows BLE baseline shield target' },
     @{ File = 'config/boards/shields/galpanel/galpanel_win_ble_baseline.conf'; Pattern = 'CONFIG_BT_GATT_ENFORCE_SUBSCRIPTION=n'; Name = 'Windows BLE baseline compatibility setting' },
-    @{ File = 'config/galpanel_win_ble_baseline.keymap'; Pattern = 'galpanel_win_ble_baseline.keymap'; Name = 'Windows BLE baseline root keymap override' }
+    @{ File = 'config/galpanel_win_ble_baseline.keymap'; Pattern = 'galpanel_win_ble_baseline.keymap'; Name = 'Windows BLE baseline root keymap override' },
+    @{ File = 'src/galpanel_win_ble_baseline.c'; Pattern = 'GP WIN BLE'; Name = 'Windows BLE baseline persistent-name override' }
 )
 
 foreach ($check in $checks) {

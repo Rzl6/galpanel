@@ -33,6 +33,10 @@
 - 下载 `galpanel-win-ble-baseline.uf2`，长度 `391168` bytes，SHA-256 为 `5E5AAD9F9DB781EB6332ED828B07153CCBB2300B28F8ACF928D1DD8B6204D3E1`；
 - 已确认 `E:` / `NICENANO` 的 `Board-ID: nRF52840-nicenano`，并完成 UF2 复制；盘符自动消失，确认基线固件被接受并重启。
 
+### 更正（同日）
+
+首次基线固件虽然包含编译期名称 `GP WIN BLE`，但实物仍显示 `GALPANEL 2`。这是因为此前正式固件的动态命名通过 `bt_set_name()` 更新了 BLE 设置区；日常 UF2 重刷不会抹除该非易失设置。基线固件的“无应用 C 模块”描述不足以处理这个残留状态，已在后续修订中加入仅用于诊断的启动名覆盖模块。该修订不清除任何 bond，仅强制广播名为 `GP WIN BLE`。
+
 ### 尚未完成
 
 - 尚未烧录并完成 Windows 与手机的对照配对。
