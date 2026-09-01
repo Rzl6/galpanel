@@ -35,11 +35,13 @@ Windows 显示“无法连接，请尝试重新连接”通常还包含主机旧
 
 - 对照固定 ZMK 源码确认 `zmk_ble_clear_bonds()` 只清除当前活动 Profile，并立即刷新广播；
 - `validate-project.ps1` 通过；
-- 待 GitHub Actions 构建正式 UF2 并完成实物烧录验证。
+- GitHub Actions Run #50/#51（提交 `f7c3665`）均构建成功；
+- 下载正式 `galpanel.uf2`，长度 `414208` bytes，SHA-256 为 `88064C132A6214FCA6F92234F617FD5316076C50BBE0ADB75254DB6B5F824C0C`；
+- 当前尚未检测到 `NICENANO` 可移动盘，等待开发板进入 UF2 Bootloader 后烧录。
 
 ### 尚未完成
 
-- GitHub 当前网络连接异常，尚未取得本次修复的云端构建结果；
+- 尚未烧录本次修复的正式 UF2；
 - 尚需实测 LINK、INFO、SYS 6 秒清除和 INFO 10 秒确认；
 - 清除后需在 Windows 删除对应的 `GALPANEL N` 条目再重新配对，不能只点击旧条目的“连接”。
 
