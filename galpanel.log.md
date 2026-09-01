@@ -36,6 +36,8 @@ LINK 常亮会在电池模式下持续消耗 LED 电流，但完全没有连接�
 - GitHub Actions Run #48（Run ID `33483010172`）正式固件和全部测试固件构建成功；
 - 下载并校验新的正式 `galpanel.uf2`，长度 `412672` bytes，SHA-256 为 `2932835BABE237775A32E51318ED13E7E4E0FB955330A8A8468770378BA4A775`；
 - 当前未检测到 `NICENANO` 盘符，因此没有强行烧录，等待开发板重新进入 UF2 Bootloader。
+- 2026-09-01，重新进入 `E:` / `NICENANO` 后烧录该正式 UF2；
+- 烧录前确认 `INFO_UF2.TXT` 为 `nRF52840-nicenano`，复制后盘符自动消失，确认固件已被 Bootloader 接受并重启。
 
 ### 尚未完成
 
