@@ -32,10 +32,11 @@ shield: galpanel
 - 基础层和 Fn 层；
 - 鼠标滚轮、音量键、BLE Profile 和 USB/BLE 输出切换；
 - QSAVE、QLOAD、Win+D 的双击保护；
-- 5 路 LED 的硬件 GPIO 定义；
+- 5 路 LED 的硬件 GPIO 定义和正式状态指示；
 - AUX 蓝灯显示当前实际输出端点：亮为 USB，灭为 BLE 或尚未连接。
+- BLE Profile 广播名为 `GALPANEL 1`～`GALPANEL 5`；
 
-LINK/INFO/FN/WARN 的状态动画、自检、Fn 超时退出和 SYS 长按清除配对仍属于后续阶段。
+正式固件中 LINK 连接成功亮 30 秒后熄灭；INFO/FN 状态显示已接入。WARN 安全操作、Fn 超时退出和最终电池/RF 验收仍属于后续阶段。
 
 ## 最省事的编译方式
 

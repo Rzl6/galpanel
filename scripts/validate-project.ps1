@@ -37,6 +37,8 @@ $requiredFiles = @(
     'config/boards/shields/galpanel/galpanel_safety_test.overlay',
     'config/boards/shields/galpanel/galpanel_safety_test.conf',
     'config/boards/shields/galpanel/galpanel_safety_test.zmk.yml',
+    'src/galpanel_status.c',
+    'src/galpanel_profile_name.c',
     'config/galpanel_led_test.keymap',
     'config/galpanel_led_ind_test.keymap',
     'config/galpanel_io_test.keymap',

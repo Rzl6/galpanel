@@ -46,6 +46,8 @@ static bool safety_cleared;
 static int64_t safety_hold_started;
 static int64_t safety_ack_until;
 static uint8_t safety_tap_count;
+static bool last_ble_connected;
+static int64_t link_led_until;
 
 static void status_work_handler(struct k_work *work);
 static K_WORK_DELAYABLE_DEFINE(status_work, status_work_handler);
@@ -66,8 +68,21 @@ static void write_status_leds(void) {
     const bool fn_active = zmk_keymap_layer_active(GALPANEL_FN_LAYER);
     const bool usb_selected = zmk_endpoint_get_selected().transport == ZMK_TRANSPORT_USB;
 
-    /* LINK: steady when connected, slow blink while waiting for BLE. */
-    const bool link_on = ble_connected || (k_uptime_get() / 500) % 2;
+    /* LINK: blink while waiting; final firmware shows a 30 s connection pulse. */
+    const int64_t now = k_uptime_get();
+    if (ble_connected && !last_ble_connected) {
+        link_led_until = now + CONFIG_GALPANEL_LINK_ON_MS;
+    }
+    last_ble_connected = ble_connected;
+
+    bool link_on;
+    if (!ble_connected) {
+        link_on = (now / 500) % 2;
+    } else if (CONFIG_GALPANEL_LINK_ON_MS == 0) {
+        link_on = true;
+    } else {
+        link_on = now < link_led_until;
+    }
     set_led(&led_link, link_on);
     set_led(&led_fn, fn_active);
     set_led(&led_aux, usb_selected);
