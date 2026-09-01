@@ -34,12 +34,13 @@
 - `validate-project.ps1` 通过；
 - `git diff --check` 通过；
 - 已核对固定 ZMK 版本提供的 `zmk_ble_active_profile_is_connected()`、`zmk_ble_active_profile_index()`、`zmk_endpoint_get_selected()`、`zmk_keymap_layer_active()` 和 `zmk_ble_clear_bonds()` API；
-- 等待 GitHub Actions 云端编译。
+- GitHub Actions Run #46（Run ID `33480668625`）的正式固件、原有诊断固件和两个新测试固件均构建成功；
+- 已下载并烧录 `galpanel-status-test.uf2`，长度 `411136` bytes，SHA-256 为 `DDEFFA12807BC0A93EB38AE72B07B54E5FF89AC5F03AEAE62A3282D3530EC177`；
+- 烧录前确认 `E:` 卷标为 `NICENANO`，复制后盘符自动消失。
 
 ### 尚未完成
 
-- 云端构建两个新测试目标；
-- 烧录 `galpanel-status-test.uf2` 并验证 LED 组合；
+- 实物验证 `galpanel-status-test.uf2` 的 LED 组合；
 - 烧录 `galpanel-safety-test.uf2` 并验证 SYS 长按清除当前 Profile；
 - 将通过验证的状态模块合并进正式 `galpanel` 固件。
 
