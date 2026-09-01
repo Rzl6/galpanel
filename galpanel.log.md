@@ -6,6 +6,42 @@
 
 ---
 
+## 2026-09-01 - 确认 Windows 新设备配对失败的 Profile 占用原因
+
+### 本次完成
+
+- 根据用户实测“手机可以连接、Windows 对 `GALPANEL 1` 提示无法连接”，检查固定版本 ZMK 的 BLE 配对实现；
+- 确认每个 ZMK BLE Profile 只允许保存一台主机的 bond；
+- 确认当前 Profile 已被手机占用时，ZMK 会主动拒绝另一台主机的新配对请求，而不是允许同一 Profile 同时绑定手机和 Windows；
+- 确认这不表示 nRF52840 天线、BLE 广播或 HID 服务整体失效：手机成功连接已证明这些基础链路可用。
+
+### 为什么这么做
+
+Windows 的“无法连接，请尝试重新连接”既可能由旧配对缓存造成，也可能由设备端拒绝新配对造成。手机能够连接将问题范围缩小到 Profile/bond 管理或 Windows 主机侧，而 ZMK 的配对保护代码明确解释了“同一 Profile 已绑定手机，Windows 新配对被拒绝”的现象。
+
+### 对后续的好处
+
+- 手机和 Windows 应使用不同 Profile，例如手机使用 `GALPANEL 1`，Windows 使用 `GALPANEL 2`；
+- 不必为正常的多设备使用反复清除 bond 或怀疑硬件；
+- 只有要把同一 Profile 从手机转交给 Windows 时，才清除该 Profile bond，并同时删除 Windows 中对应旧条目。
+
+### 本次验证
+
+- 对照固定 ZMK 源码 `pairing_allowed_for_current_profile()`：只有空 Profile 才接受新主机配对；
+- 对照 `auth_pairing_accept()`：Profile 已占用时返回 `BT_SECURITY_ERR_PAIR_NOT_ALLOWED`；
+- 用户已确认手机能够成功连接，证明 BLE 广播和基础 HID 配对路径有效。
+
+### 尚未完成
+
+- 需在空的 Profile 2～5 之一完成 Windows 首次配对；
+- 若空 Profile 也失败，再执行该 Profile 的设备端/Windows 端双端 bond 清理，并单独排查 Windows 蓝牙适配器。
+
+### 关联提交
+
+待提交：`docs: record BLE profile pairing diagnosis`
+
+---
+
 ## 2026-09-01 - 修正 SYS 短按误亮 WARN
 
 ### 本次完成
