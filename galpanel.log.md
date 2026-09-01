@@ -28,11 +28,12 @@ WARN 应表示危险操作或错误，而不是普通 SYS 操作。原实现把�
 ### 本次验证
 
 - 静态检查确认 WARN 条件现在依赖 `held_ms >= 5000` 或实际清除确认；
-- 尚待 GitHub Actions 构建和实物验证。
+- GitHub Actions Run #53（提交 `62ea45b`）构建成功；
+- 下载正式 `galpanel.uf2`，长度 `414720` bytes，SHA-256 为 `4CD74E5A4845AD48B7D8539430FF1BE0C2F4B896503372BC11B80A43CA3488D8`；
+- 已确认 `E:` / `NICENANO` 的 `Board-ID: nRF52840-nicenano`，并完成 UF2 复制；盘符自动消失，确认固件被接受并重启。
 
 ### 尚未完成
 
-- 尚未重新烧录本次 WARN 修正版；
 - BLE 无法连接仍需在新固件下先确认 LINK 广播状态，再执行双端 bond 清理。
 
 ### 关联提交
