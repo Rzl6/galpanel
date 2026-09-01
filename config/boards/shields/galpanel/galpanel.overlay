@@ -35,11 +35,11 @@
          * 0 D2  KEY_FAST
          * 1 D3  KEY_AUTO
          * 2 D4  KEY_NEXT
-         * 3 D5  KEY_QSAVE
-         * 4 D7  KEY_DESKTOP
+         * 3 D5  KEY_QSAVE (right upper side key)
+         * 4 D7  KEY_DESKTOP (right lower side key)
          * 5 D8  KEY_SYS
-         * 6 D14 KEY_FN
-         * 7 D18 KEY_QLOAD
+         * 6 D14 KEY_FN (left lower side key)
+         * 7 D18 KEY_QLOAD (left upper side key)
          * 8 D19 ENC_SW
          */
         input-gpios

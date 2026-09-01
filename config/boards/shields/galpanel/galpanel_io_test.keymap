@@ -10,8 +10,9 @@
         io_test_layer {
             display-name = "IO TEST";
 
-            /* D2 FAST, D3 AUTO, D4 NEXT, D5 QSAVE, D7 DESKTOP,
-             * D8 SYS, D14 FN, D18 QLOAD, D19 EC11_SW. */
+            /* D2 FAST, D3 AUTO, D4 NEXT, D5 QSAVE (right upper),
+             * D7 DESKTOP (right lower), D8 SYS, D14 FN (left lower),
+             * D18 QLOAD (left upper), D19 EC11_SW. */
             bindings = <
                 &kp N1 &kp N2 &kp N3
                 &kp N4 &kp N5 &kp N6
