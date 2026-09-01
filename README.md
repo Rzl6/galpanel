@@ -15,10 +15,11 @@ shield: galpanel
 
 1. `项目认知.md`：先理解硬件和最终键位；
 2. `项目规划.md`：了解软件会分哪些阶段完成；
-3. `学习日志.md`：建立 STM32 与 Zephyr/ZMK 的知识映射；
-4. `config/boards/shields/galpanel/galpanel.overlay`：看 GPIO 和 EC11；
-5. `config/boards/shields/galpanel/galpanel.keymap`：看按键行为；
-6. `galpanel.log.md`：查看每次具体改动和原因。
+3. `使用说明.md`：查看最终用户功能和操作方式；
+4. `学习日志.md`：建立 STM32 与 Zephyr/ZMK 的知识映射；
+5. `config/boards/shields/galpanel/galpanel.overlay`：看 GPIO 和 EC11；
+6. `config/boards/shields/galpanel/galpanel.keymap`：看按键行为；
+7. `galpanel.log.md`：查看每次具体改动和原因。
 
 ## 当前软件能力
 

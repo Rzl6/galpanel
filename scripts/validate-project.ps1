@@ -5,6 +5,7 @@ $requiredFiles = @(
     'README.md',
     '项目认知.md',
     '项目规划.md',
+    '使用说明.md',
     'galpanel.log.md',
     '学习日志.md',
     '测试计划.md',
