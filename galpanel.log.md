@@ -33,11 +33,12 @@ LINK 常亮会在电池模式下持续消耗 LED 电流，但完全没有连接�
 
 - 对照固定 ZMK 版本确认 `zmk_ble_set_device_name()` 会更新 BLE 广播名称；
 - `galpanel-status-test` 和正式 `galpanel` 目标均已配置独立 LINK 超时参数；
-- 待云端编译和正式固件实物验证 30 秒熄灯、重连重计时及 Profile 名称。
+- GitHub Actions Run #48（Run ID `33483010172`）正式固件和全部测试固件构建成功；
+- 下载并校验新的正式 `galpanel.uf2`，长度 `412672` bytes，SHA-256 为 `2932835BABE237775A32E51318ED13E7E4E0FB955330A8A8468770378BA4A775`；
+- 当前未检测到 `NICENANO` 盘符，因此没有强行烧录，等待开发板重新进入 UF2 Bootloader。
 
 ### 尚未完成
 
-- 云端构建本轮最终固件；
 - 烧录正式固件并观察 LINK 30 秒计时；
 - 切换五个 Profile，确认 Windows/手机蓝牙列表显示 `GALPANEL 1`～`GALPANEL 5`；
 - 验证名称切换时不会误清除已有 bond。
