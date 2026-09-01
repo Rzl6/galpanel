@@ -29,11 +29,12 @@
 ### 本次验证
 
 - 已核对该 Shield 不满足状态/动态名称模块的 Kconfig 依赖，因此不会链接 `galpanel_status.c` 或 `galpanel_profile_name.c`；
-- 待本次 GitHub Actions 构建和 Windows/手机实物对照。
+- GitHub Actions Run #58（提交 `243b099`）构建成功；
+- 下载 `galpanel-win-ble-baseline.uf2`，长度 `391168` bytes，SHA-256 为 `5E5AAD9F9DB781EB6332ED828B07153CCBB2300B28F8ACF928D1DD8B6204D3E1`；
+- 当前未检测到 `NICENANO` 盘符，等待进入 UF2 Bootloader 后烧录。
 
 ### 尚未完成
 
-- 尚未获得 `galpanel-win-ble-baseline.uf2`；
 - 尚未烧录并完成 Windows 与手机的对照配对。
 
 ### 关联提交
