@@ -23,3 +23,6 @@ include:
   - board: nice_nano//zmk
     shield: galpanel_safety_test
     artifact-name: galpanel-safety-test
+  - board: nice_nano//zmk
+    shield: galpanel_win_ble_baseline
+    artifact-name: galpanel-win-ble-baseline

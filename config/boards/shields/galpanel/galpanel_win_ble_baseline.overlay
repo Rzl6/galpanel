@@ -1,0 +1,13 @@
+/*
+ * Windows BLE baseline: same physical key GPIOs, but no GALPANEL status LEDs,
+ * encoder, dynamic Profile names, or application C modules.
+ */
+#include "galpanel.overlay"
+
+&galpanel_leds {
+    status = "disabled";
+};
+
+&galpanel_encoder {
+    status = "disabled";
+};

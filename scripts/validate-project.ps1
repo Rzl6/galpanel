@@ -37,6 +37,10 @@ $requiredFiles = @(
     'config/boards/shields/galpanel/galpanel_safety_test.overlay',
     'config/boards/shields/galpanel/galpanel_safety_test.conf',
     'config/boards/shields/galpanel/galpanel_safety_test.zmk.yml',
+    'config/boards/shields/galpanel/galpanel_win_ble_baseline.overlay',
+    'config/boards/shields/galpanel/galpanel_win_ble_baseline.conf',
+    'config/boards/shields/galpanel/galpanel_win_ble_baseline.keymap',
+    'config/boards/shields/galpanel/galpanel_win_ble_baseline.zmk.yml',
     'src/galpanel_status.c',
     'src/galpanel_profile_name.c',
     'config/galpanel_led_test.keymap',
@@ -44,7 +48,8 @@ $requiredFiles = @(
     'config/galpanel_io_test.keymap',
     'config/galpanel_ec11_test.keymap',
     'config/galpanel_status_test.keymap',
-    'config/galpanel_safety_test.keymap'
+    'config/galpanel_safety_test.keymap',
+    'config/galpanel_win_ble_baseline.keymap'
 )
 
 $failed = $false
@@ -73,7 +78,10 @@ $checks = @(
     @{ File = 'config/galpanel_io_test.keymap'; Pattern = 'galpanel_io_test.keymap'; Name = 'IO test root keymap override' },
     @{ File = 'config/galpanel_ec11_test.keymap'; Pattern = 'galpanel_ec11_test.keymap'; Name = 'EC11 test root keymap override' },
     @{ File = 'config/galpanel_status_test.keymap'; Pattern = 'galpanel.keymap'; Name = 'status test root keymap override' },
-    @{ File = 'config/galpanel_safety_test.keymap'; Pattern = 'six-second destructive hold'; Name = 'safety test root keymap override' }
+    @{ File = 'config/galpanel_safety_test.keymap'; Pattern = 'six-second destructive hold'; Name = 'safety test root keymap override' },
+    @{ File = 'build.yaml'; Pattern = 'shield: galpanel_win_ble_baseline'; Name = 'Windows BLE baseline shield target' },
+    @{ File = 'config/boards/shields/galpanel/galpanel_win_ble_baseline.conf'; Pattern = 'CONFIG_BT_GATT_ENFORCE_SUBSCRIPTION=n'; Name = 'Windows BLE baseline compatibility setting' },
+    @{ File = 'config/galpanel_win_ble_baseline.keymap'; Pattern = 'galpanel_win_ble_baseline.keymap'; Name = 'Windows BLE baseline root keymap override' }
 )
 
 foreach ($check in $checks) {

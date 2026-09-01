@@ -1,0 +1,2 @@
+/* Root-level ZMK keymap override for the Windows BLE pairing baseline. */
+#include "boards/shields/galpanel/galpanel_win_ble_baseline.keymap"

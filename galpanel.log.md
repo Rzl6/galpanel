@@ -6,6 +6,42 @@
 
 ---
 
+## 2026-09-01 - 增加 Windows 静态名称 BLE 基线固件
+
+### 本次完成
+
+- 根据 Windows 设备列表中不存在任何 `GALPANEL` 条目的截图，确认当前失败不是 Windows 保留旧 GALPANEL 条目导致；
+- 新增 `galpanel-win-ble-baseline` 构建目标，固定广播名为 `GP WIN BLE`；
+- 基线固件复用同一块 nRF52840 和 D2～D19 按键 GPIO，但禁用动态 Profile 名称、状态灯/SYS 自定义模块、LED 和 EC11；
+- D2/D3/D4 在基线固件中分别输出 `A/B/C`，用于确认 Windows 配对成功后 HID 真的可用；D8 保留 ZMK 原生 `BT_NXT`；
+- 在《测试计划》中增加 T11 对照测试与结果判定规则。
+
+### 为什么这么做
+
+手机可以首次配对，Windows 却不能，说明需要用最小化对照实验而不是继续同时修改 Windows 设置、Profile 名称、状态灯和配对代码。静态名称基线只保留 ZMK 标准 BLE 和输入，能明确定位自定义软件与 Windows 主机侧之间的边界。
+
+### 对后续的好处
+
+- Windows 成功时，可以精确审查动态名称模块，而不是怀疑硬件；
+- Windows 失败时，可以停止在主控固件上做无关改动，转向适配器驱动和 Windows BLE 栈；
+- 基线文件会长期保留为可复现的售后/回归工具。
+
+### 本次验证
+
+- 已核对该 Shield 不满足状态/动态名称模块的 Kconfig 依赖，因此不会链接 `galpanel_status.c` 或 `galpanel_profile_name.c`；
+- 待本次 GitHub Actions 构建和 Windows/手机实物对照。
+
+### 尚未完成
+
+- 尚未获得 `galpanel-win-ble-baseline.uf2`；
+- 尚未烧录并完成 Windows 与手机的对照配对。
+
+### 关联提交
+
+待提交：`test: add Windows BLE pairing baseline`
+
+---
+
 ## 2026-09-01 - 确认 Windows 新设备配对失败的 Profile 占用原因
 
 ### 本次完成
