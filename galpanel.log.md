@@ -10,7 +10,7 @@
 
 ### 本次完成
 
-- 根据用户实测“手机可以连接、Windows 对 `GALPANEL 1` 提示无法连接”，检查固定版本 ZMK 的 BLE 配对实现；
+- 根据初始描述“手机可以连接、Windows 对 `GALPANEL 1` 提示无法连接”，检查固定版本 ZMK 的 BLE 配对实现；
 - 确认每个 ZMK BLE Profile 只允许保存一台主机的 bond；
 - 确认当前 Profile 已被手机占用时，ZMK 会主动拒绝另一台主机的新配对请求，而不是允许同一 Profile 同时绑定手机和 Windows；
 - 确认这不表示 nRF52840 天线、BLE 广播或 HID 服务整体失效：手机成功连接已证明这些基础链路可用。
@@ -39,6 +39,45 @@ Windows 的“无法连接，请尝试重新连接”既可能由旧配对缓存
 ### 关联提交
 
 待提交：`docs: record BLE profile pairing diagnosis`
+
+### 更正（同日）
+
+用户随后明确：Windows 和手机都是对空设备进行首次配对，且 Windows 先失败、手机后成功。该条件不符合“Profile 已被手机占用”的前提，因此本条不能作为本次失败的最终原因，只保留为多主机使用时的规则说明。当前诊断应转向 Windows 的 BLE/GATT 缓存、蓝牙适配器和动态 Profile 名称兼容性。
+
+---
+
+## 2026-09-01 - 增加 Windows BLE/GATT 兼容配置
+
+### 本次完成
+
+- 在正式 GALPANEL 配置中加入 `CONFIG_BT_GATT_ENFORCE_SUBSCRIPTION=n`；
+- 该项是 ZMK 官方文档给出的 Windows BLE/GATT 兼容配置；
+- 更新《使用说明》的 Windows 失败恢复步骤，并规定下一步用静态名称基线固件做 A/B 隔离。
+
+### 为什么这么做
+
+手机可以对空设备首次配对，说明设备的广播、射频、SMP 和 HID 基础功能成立。Windows 失败因此不能再归因于 Profile 占用。ZMK 明确记录 Windows 与默认 GATT 订阅策略的兼容问题，先启用该低风险配置能够减少一个已知 Windows 变量。
+
+### 对后续的好处
+
+- 不改变 5 个 Profile 的一主机一 bond 规则；
+- 不改变 Android/iOS 配对路径；
+- 若 Windows 仍失败，可将问题收敛到“Windows 主机/适配器”或“动态名称模块”，用静态名称基线固件直接区分。
+
+### 本次验证
+
+- 对照 ZMK 官方 Bluetooth Configuration：该项用于规避 Windows 的 GATT/battery notification 兼容问题；
+- 尚待 GitHub Actions 构建与 Windows 实物复测。
+
+### 尚未完成
+
+- 尚未烧录本次 Windows 兼容固件；
+- 尚未完成静态名称 BLE 基线 A/B 测试；
+- 需确认 Windows 使用的蓝牙适配器和驱动版本，作为软件基线固件之后的下一层排查。
+
+### 关联提交
+
+待提交：`fix: add Windows BLE compatibility setting`
 
 ---
 
