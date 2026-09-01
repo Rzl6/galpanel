@@ -33,7 +33,8 @@
 
 ### 尚未完成
 
-- 需获得用户许可后清除 Profile 5 的 bond（仅该 Profile）并刷入 Run #3，形成干净的 Windows 回归测试；
+- 用户已授权 Profile 5 的受控清除；已烧录 BLE recovery UF2（SHA-256 `213EF8F489BFFC9FA8A15D43D46C30444BF36ED64F2D454E55ADDF9815B475F5`），等待按 D7 选择 Profile 5、按 D14 清除该 Profile；
+- 完成后刷入 Run #3，形成干净的 Windows 回归测试；
 - 若干净 Profile 5 + Run #3 仍失败，再将问题定向到 Windows 蓝牙服务/适配器驱动，而不是 GALPANEL 应用逻辑。
 
 ### 关联提交
