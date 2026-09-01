@@ -6,6 +6,43 @@
 
 ---
 
+## 2026-09-01 - 清空 Profile 5 后烧录历史 Windows 可用基线
+
+### 本次完成
+
+- 用户已在 BLE recovery 固件中执行：D7 一次选择 Profile 5，D14 一次清除当前 Profile 的 bond；
+- 用户双击 RST 后，确认 `E:` 的 `INFO_UF2.TXT` 为 `Board-ID: nRF52840-nicenano`；
+- 已烧录历史 Run #3 固件 `artifacts/firmware-run-3/galpanel.uf2`；
+- 写入前 SHA-256 已核对为 `6805B40DE4D7214ABE371D7DC0138B99BB5AB18E32165ED1B43DC92ED017F5E4`；
+- 写入后三秒内 `NICENANO` 盘符自动消失，确认 Bootloader 接受 UF2 并重新启动。
+
+### 为什么这么做
+
+这次只保留两个受控条件：确定空闲的 Profile 5 和历史上已在本机 Windows 配对成功过的 Run #3 固件。它将当前问题从后来增加的动态蓝牙命名、状态灯和 SYS 行为中隔离出来。
+
+### 对后续的好处
+
+- Windows 若现在能首次配对，说明故障在后续正式固件演进中，可从 Run #3 开始逐项回归；
+- Windows 若仍不能配对，硬件与常规 ZMK 应用代码基本排除，应转查 Windows 蓝牙服务、适配器驱动或系统 BLE 状态；
+- Profile 1～4 的现有配对记录未受本轮操作影响。
+
+### 本次验证
+
+- Bootloader 型号、Board-ID 与 UF2 的目标板一致；
+- 目标 UF2 的 SHA-256 与 2026-07-26 成功记录一致；
+- 盘符消失表明烧录已完成。
+
+### 尚未完成
+
+- 等待用户在 Windows 蓝牙设置中搜索并首次配对当前广播设备；
+- 记录配对结果及 D2/D3/D4 的 HID 输入结果。
+
+### 关联提交
+
+待提交：`test: flash clean Profile 5 historical BLE baseline`
+
+---
+
 ## 2026-09-01 - 找回 Windows 历史可用固件并识别基线测试残留变量
 
 ### 本次完成
