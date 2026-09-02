@@ -77,6 +77,13 @@
 - 广播名设为 `GALPANEL MIN`，用于和旧 `GALPANEL` 条目区分；
 - 本地结构检查通过，等待 GitHub Actions 构建。
 
+### 构建与烧录进度
+
+- GitHub Actions Run `33605328383` 构建成功；
+- `galpanel-ble-min.uf2` SHA-256：`433BF94C133B2BA62158F3C15386883FA25AA60F3D210D56447A2F581A941FF6`；
+- 已烧录 `GALPANEL BLE MIN`，烧录后 `NICENANO` 盘符自动消失并完成重启；
+- 下一步按 D8 一次清除全部 bond，再在 Windows 测试 `GALPANEL MIN` 的首次连接与 D2/D3/D4/D5/D7/D14/D18/D19 输入。
+
 ### 关联提交
 
 待提交：`test: add upstream ZMK BLE isolation firmware`
