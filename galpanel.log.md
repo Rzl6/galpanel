@@ -6,6 +6,44 @@
 
 ---
 
+## 2026-09-02 - 历史可用固件仍无法连接 Windows
+
+### 本次完成
+
+- 用户反馈：Profile 5 已清除、烧录历史 Run #3 后，Windows 仍然无法连接；
+- 因此“后期正式固件改坏 BLE”这一假设不成立：Run #3 是 2026-07-26 曾在本机 Windows 首次配对成功的已知版本；
+- 检查本机 Windows 蓝牙状态：`bthserv` 为 Running，启动类型为 Manual；
+- 检查 Intel(R) Wireless Bluetooth(R) 适配器：设备状态为 OK、Present=True、无 ProblemCode；
+- 本轮未修改固件源码，避免继续扩大变量。
+
+### 为什么这么做
+
+在确定 Profile 空闲且恢复到历史成功固件后仍失败，继续修改名称、GATT 或 LED 逻辑不能提供有效定位信息。此时应把故障边界转移到 Windows 的蓝牙配对状态、适配器驱动或系统 BLE 缓存。
+
+### 对后续的好处
+
+- 保留了一个可复现的设备端基线，后续排查不会反复烧录不同应用代码；
+- 先验证 Windows 是否能连接其它 BLE HID 设备，可区分“电脑蓝牙整体异常”和“GALPANEL 特定兼容问题”；
+- 若手机仍能连接 Run #3，可继续证明设备广播、配对和 HID 服务正常。
+
+### 本次验证
+
+- `artifacts/firmware-run-3/galpanel.uf2` SHA-256：`6805B40DE4D7214ABE371D7DC0138B99BB5AB18E32165ED1B43DC92ED017F5E4`；
+- UF2 复制后 `NICENANO` 盘符自动消失，设备已重启；
+- Windows Intel 蓝牙适配器与蓝牙服务均报告正常。
+
+### 尚未完成
+
+- 用手机确认当前 Run #3 是否仍可发现/连接；
+- 在 Windows 上尝试连接另一台 BLE HID 设备；
+- 若其它 BLE HID 也失败，重启蓝牙适配器/服务并重新安装对应驱动；若其它设备正常，再继续分析 GALPANEL 的 Windows HID 枚举差异。
+
+### 关联提交
+
+待提交：`test: record historical BLE baseline failure on Windows`
+
+---
+
 ## 2026-09-01 - 清空 Profile 5 后烧录历史 Windows 可用基线
 
 ### 本次完成
