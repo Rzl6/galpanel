@@ -12,6 +12,7 @@
 
 - 用户反馈：Profile 5 已清除、烧录历史 Run #3 后，Windows 仍然无法连接；
 - 用户进一步确认：同一块板、同一枚 Profile 5，在手机端仍可首次配对并连接；
+- 用户再次确认：电脑仍无法首次配对，而手机可以首次配对；该结果与 Run #3 历史基线一致；
 - 因此“后期正式固件改坏 BLE”这一假设不成立：Run #3 是 2026-07-26 曾在本机 Windows 首次配对成功的已知版本；
 - 检查本机 Windows 蓝牙状态：`bthserv` 为 Running，启动类型为 Manual；
 - 检查 Intel(R) Wireless Bluetooth(R) 适配器：设备状态为 OK、Present=True、无 ProblemCode；
@@ -40,6 +41,10 @@
 - 在 Windows 上尝试连接另一台已知可用的 BLE 键盘或鼠标；
 - 若其它 BLE HID 也失败，优先重启蓝牙适配器/服务并重新安装对应驱动；若其它设备正常，再继续分析 GALPANEL 的 Windows HID 枚举差异；
 - 可用 USB 蓝牙 5.x 适配器做交叉验证，但不能替代上述对照测试。
+
+### 当前结论
+
+设备端 BLE 广播、SMP 配对和 HID 服务已经被手机首次连接实物验证；在相同固件、相同 Profile 和相同硬件下，失败只发生在当前 Windows 主机。因此目前最高概率是 Windows 蓝牙适配器/驱动、系统 BLE 缓存或该主机的 BLE HID 兼容状态，而不是 GALPANEL 应用固件。
 
 ### 关联提交
 
