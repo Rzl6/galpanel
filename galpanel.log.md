@@ -11,9 +11,11 @@
 ### 本次完成
 
 - 用户反馈：Profile 5 已清除、烧录历史 Run #3 后，Windows 仍然无法连接；
+- 用户进一步确认：同一块板、同一枚 Profile 5，在手机端仍可首次配对并连接；
 - 因此“后期正式固件改坏 BLE”这一假设不成立：Run #3 是 2026-07-26 曾在本机 Windows 首次配对成功的已知版本；
 - 检查本机 Windows 蓝牙状态：`bthserv` 为 Running，启动类型为 Manual；
 - 检查 Intel(R) Wireless Bluetooth(R) 适配器：设备状态为 OK、Present=True、无 ProblemCode；
+- 当前主机为 Windows 10 Pro，OS build `26200`；Intel 蓝牙驱动版本为 `10.0.26100.8972`；
 - 本轮未修改固件源码，避免继续扩大变量。
 
 ### 为什么这么做
@@ -31,12 +33,13 @@
 - `artifacts/firmware-run-3/galpanel.uf2` SHA-256：`6805B40DE4D7214ABE371D7DC0138B99BB5AB18E32165ED1B43DC92ED017F5E4`；
 - UF2 复制后 `NICENANO` 盘符自动消失，设备已重启；
 - Windows Intel 蓝牙适配器与蓝牙服务均报告正常。
+- 手机对当前 Run #3 的首次配对成功，进一步确认设备广播、SMP 配对和 HID 服务仍然可用；
 
 ### 尚未完成
 
-- 用手机确认当前 Run #3 是否仍可发现/连接；
-- 在 Windows 上尝试连接另一台 BLE HID 设备；
-- 若其它 BLE HID 也失败，重启蓝牙适配器/服务并重新安装对应驱动；若其它设备正常，再继续分析 GALPANEL 的 Windows HID 枚举差异。
+- 在 Windows 上尝试连接另一台已知可用的 BLE 键盘或鼠标；
+- 若其它 BLE HID 也失败，优先重启蓝牙适配器/服务并重新安装对应驱动；若其它设备正常，再继续分析 GALPANEL 的 Windows HID 枚举差异；
+- 可用 USB 蓝牙 5.x 适配器做交叉验证，但不能替代上述对照测试。
 
 ### 关联提交
 
