@@ -39,6 +39,13 @@
 - 已烧录上游 ZMK 独立 BLE 固件，盘符自动消失并完成重启；
 - 下一步按 D8 一次执行测试固件内置的 `BT_CLR_ALL`，然后在 Windows 搜索 `ZMK BLE TEST`。
 
+### 更正与实测提示
+
+- 上游 ZMK 隔离固件未包含运行时 `bt_set_name()` 覆盖模块；由于 BLE 名称保存在设置区，Windows 仍显示原名称 `GALPANEL`；
+- 这不影响 BLE HID 隔离测试，列表中的 `GALPANEL` 就是当前上游测试固件；
+- 用户应连接该条目，配对后按 D2→GND，观察是否输入 `A`；
+- 此处更正先前“应显示 ZMK BLE TEST”的判断，该名称只能作为编译期默认值，不能覆盖已有持久化名称。
+
 ### 关联提交
 
 待提交：`test: add upstream ZMK BLE isolation firmware`
