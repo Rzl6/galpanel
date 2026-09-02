@@ -1,0 +1,2 @@
+/* Root-level ZMK keymap override for GALPANEL BLE MIN. */
+#include "boards/shields/galpanel_ble_min/galpanel_ble_min.keymap"

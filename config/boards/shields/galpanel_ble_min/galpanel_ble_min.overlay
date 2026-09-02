@@ -1,0 +1,10 @@
+/* Real GALPANEL GPIOs, with encoder and status LEDs disabled. */
+#include "../galpanel/galpanel.overlay"
+
+&galpanel_leds {
+    status = "disabled";
+};
+
+&galpanel_encoder {
+    status = "disabled";
+};

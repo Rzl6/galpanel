@@ -1,0 +1,6 @@
+if SHIELD_GALPANEL_BLE_MIN
+
+config ZMK_KEYBOARD_NAME
+  default "GALPANEL MIN"
+
+endif

@@ -68,6 +68,15 @@
 - MIN 通过而 FULL 失败，表示 Profile 名称、状态灯、SYS、EC11 或其他自定义模块引入了连接问题；
 - 该方案只需一个新的最小固件，FULL 直接使用现有正式固件，避免无意义地复制多个近似镜像。
 
+### 开始构建 GALPANEL BLE MIN
+
+- 新增 `galpanel_ble_min` shield；
+- 使用 GALPANEL 的真实 9 路 GPIO 输入布局，但禁用 EC11、LED 和全部 GALPANEL 自定义 C 模块；
+- D2/D3/D4/D5/D7/D14/D18/D19 分别输出 `A/B/C/D/E/F/G/ENTER`；
+- D8 映射为 `BT_CLR_ALL`，用于烧录后清除设备端全部 bond；
+- 广播名设为 `GALPANEL MIN`，用于和旧 `GALPANEL` 条目区分；
+- 本地结构检查通过，等待 GitHub Actions 构建。
+
 ### 关联提交
 
 待提交：`test: add upstream ZMK BLE isolation firmware`

@@ -1,0 +1,4 @@
+# GALPANEL BLE minimum isolation test.
+
+config SHIELD_GALPANEL_BLE_MIN
+  def_bool $(shields_list_contains,galpanel_ble_min)

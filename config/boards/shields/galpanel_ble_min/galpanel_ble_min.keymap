@@ -1,0 +1,19 @@
+/* GALPANEL BLE MIN: real keys, stock ZMK BLE HID, no custom GALPANEL logic. */
+
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/bt.h>
+#include <dt-bindings/zmk/keys.h>
+
+/ {
+    keymap {
+        compatible = "zmk,keymap";
+
+        default_layer {
+            bindings = <
+                &kp A &kp B &kp C
+                &kp D &kp E &bt BT_CLR_ALL
+                &kp F &kp G &kp ENTER
+            >;
+        };
+    };
+};

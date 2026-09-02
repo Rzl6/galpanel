@@ -32,3 +32,6 @@ include:
   - board: nice_nano//zmk
     shield: official_zmk_ble_test
     artifact-name: official-zmk-ble-test
+  - board: nice_nano//zmk
+    shield: galpanel_ble_min
+    artifact-name: galpanel-ble-min
