@@ -1,0 +1,7 @@
+file_format: "1"
+id: official_zmk_ble_test
+name: UPSTREAM ZMK BLE TEST
+type: shield
+requires: [pro_micro]
+features:
+  - keys

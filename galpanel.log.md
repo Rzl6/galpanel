@@ -6,6 +6,38 @@
 
 ---
 
+## 2026-09-02 - 新增上游 ZMK 独立 BLE 隔离测试目标
+
+### 本次完成
+
+- 查阅官方/上游固件来源后确认：nice!nano 提供的是 UF2 Bootloader，并没有适用于本板的厂家通用 BLE 键盘测试 UF2；BlueMicro 官方仓库主要提供源码；
+- 新增完全不引用 GALPANEL overlay、keymap、状态模块或自定义 C 源码的 `official_zmk_ble_test` shield；
+- 使用上游 ZMK 的 `nice_nano//zmk` 板目标；
+- D2 发送 `A`，D8 执行测试用 `BT_CLR_ALL`，仅保留最小 BLE HID 与 GPIO 扫描；
+- 广播名设为 `ZMK BLE TEST`；
+- 本地项目结构检查通过，并加入 GitHub Actions 构建目标。
+
+### 为什么这么做
+
+历史 Run #3 在手机上可以连接，但当前 Windows 仍失败。继续修改 GALPANEL 固件无法区分“项目配置问题”和“Windows BLE 主机问题”。上游 ZMK 最小镜像可以把 GALPANEL 自定义功能全部移除，只测试 nRF52840、ZMK 标准 BLE HID 和 Windows 配对。
+
+### 对后续的好处
+
+- 上游镜像失败：问题基本落在 Windows 蓝牙适配器、驱动或系统 BLE 栈；
+- 上游镜像成功：再集中检查 GALPANEL 的 HID 描述符、Profile 或自定义模块；
+- D8 可在测试前清除全部 bond，避免设置区残留影响结果。
+
+### 尚未完成
+
+- 等待 GitHub Actions 构建 `official-zmk-ble-test.uf2`；
+- 构建成功后烧录并记录 Windows 与手机的对照结果。
+
+### 关联提交
+
+待提交：`test: add upstream ZMK BLE isolation firmware`
+
+---
+
 ## 2026-09-02 - 实施方案 A：新增历史名称重置固件
 
 ### 本次完成

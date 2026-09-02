@@ -1,0 +1,17 @@
+/* Minimal upstream ZMK BLE test: D2 sends A, D8 clears all bonds. */
+
+/ {
+    chosen {
+        zmk,kscan = &official_test_kscan;
+    };
+
+    official_test_kscan: official_test_kscan {
+        compatible = "zmk,kscan-gpio-direct";
+        input-gpios
+            = <&pro_micro 2 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
+            , <&pro_micro 8 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
+            ;
+        debounce-press-ms = <5>;
+        debounce-release-ms = <5>;
+    };
+};

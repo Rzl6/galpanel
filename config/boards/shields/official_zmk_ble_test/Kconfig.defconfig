@@ -1,0 +1,6 @@
+if SHIELD_OFFICIAL_ZMK_BLE_TEST
+
+config ZMK_KEYBOARD_NAME
+  default "ZMK BLE TEST"
+
+endif

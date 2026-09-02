@@ -29,3 +29,6 @@ include:
   - board: nice_nano//zmk
     shield: galpanel_name_reset
     artifact-name: galpanel-name-reset
+  - board: nice_nano//zmk
+    shield: official_zmk_ble_test
+    artifact-name: official-zmk-ble-test

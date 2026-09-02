@@ -1,0 +1,4 @@
+# Upstream ZMK-only BLE isolation test.
+
+config SHIELD_OFFICIAL_ZMK_BLE_TEST
+  def_bool $(shields_list_contains,official_zmk_ble_test)

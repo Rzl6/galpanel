@@ -1,0 +1,2 @@
+/* Root-level override for the upstream ZMK BLE isolation test. */
+#include "boards/shields/official_zmk_ble_test/official_zmk_ble_test.keymap"
