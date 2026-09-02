@@ -120,6 +120,13 @@
 - UF2 SHA-256：`49625D62E66C75ECA0ACF035568437FFC659CF4C3BEFBE534D3BEABA9FB43874`；
 - 该镜像可作为最终功能候选版；在断电重连、Profile/输出切换和电池/RF 条件完成前，不标记为最终发布版。
 
+### Profile 名称切换行为说明
+
+- 用户实测单击 SYS 后 Windows 显示活动名称从其他 `GALPANEL N` 变为 `GALPANEL 3`，且 Profile 3 显示已连接；
+- 这是预期行为：5 个 Profile 的 bond/密钥彼此隔离，但 BLE 设备一次只使用一个活动 Profile；
+- SYS 切换活动 Profile 后，广播名称同步更新为对应的 `GALPANEL 1`～`GALPANEL 5`，已配对的新 Profile 会自动重连；
+- “Profile 隔离”不表示 5 个 BLE 名称同时由同一块板独立在线，而是表示不同主机的配对记录互不覆盖。
+
 ### 收尾回归建议
 
 - 断电再上电，验证已配对 Profile 自动重连；
