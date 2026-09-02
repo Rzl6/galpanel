@@ -1,0 +1,2 @@
+/* Root-level ZMK keymap override for the historical name reset image. */
+#include "boards/shields/galpanel/galpanel_name_reset.keymap"

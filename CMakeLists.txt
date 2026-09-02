@@ -16,3 +16,7 @@ endif()
 if(CONFIG_SHIELD_GALPANEL_WIN_BLE_BASELINE)
   target_sources(app PRIVATE src/galpanel_win_ble_baseline.c)
 endif()
+
+if(CONFIG_SHIELD_GALPANEL_NAME_RESET)
+  target_sources(app PRIVATE src/galpanel_name_reset.c)
+endif()

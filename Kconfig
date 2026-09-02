@@ -47,4 +47,12 @@ config GALPANEL_SAFETY_TEST
       toggles USB/BLE output, and a guarded six-second hold clears the current
       BLE profile bond with LED feedback.
 
+config GALPANEL_NAME_RESET
+    bool "Enable one-shot historical GALPANEL name reset"
+    depends on SHIELD_GALPANEL_NAME_RESET
+    default y
+    help
+      Write the historical static BLE name GALPANEL to the persistent
+      settings area. This is a diagnostic/recovery image only.
+
 endmenu

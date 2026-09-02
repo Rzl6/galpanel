@@ -6,6 +6,43 @@
 
 ---
 
+## 2026-09-02 - 实施方案 A：新增历史名称重置固件
+
+### 本次完成
+
+- 新增 `galpanel_name_reset` 独立构建目标；
+- 新增 `src/galpanel_name_reset.c`，启动后等待 1 秒并将持久化 BLE 名称写为 `GALPANEL`；
+- 复用 Windows BLE 基线的最小按键布局，不启用 EC11、状态灯和正式产品逻辑；
+- 将 `galpanel-name-reset` 加入 `build.yaml`，由 GitHub Actions 云端构建；
+- 本地项目结构检查通过。
+
+### 为什么这么做
+
+普通 UF2 刷写不会清除 nRF52840 的设置区，Run #3 因此无法自动覆盖先前诊断固件写入的 `GP WIN BLE`。把名称恢复动作单独做成一次性固件，可以避免修改历史 BLE 通过镜像，也避免把正式固件行为混入名称恢复测试。
+
+### 对后续的好处
+
+- 蓝牙列表恢复历史可识别名称 `GALPANEL`；
+- 名称恢复、Profile bond 清除、历史 BLE 回归三步职责明确；
+- 该目标可作为以后诊断设置区残留的通用恢复工具。
+
+### 本次验证
+
+- `scripts/validate-project.ps1` 通过；
+- 未修改正式 `galpanel`、历史 Run #3 或既有测试目标；
+- 仅新增构建目标和对应源码/配置。
+
+### 尚未完成
+
+- 等待 GitHub Actions 构建 `galpanel-name-reset.uf2`；
+- 构建完成后按“名称重置 → Profile 5 清除 → Run #3”顺序烧录。
+
+### 关联提交
+
+待提交：`feat: add historical BLE name reset firmware`
+
+---
+
 ## 2026-09-02 - 解释历史固件名称显示为 GP WIN BLE
 
 ### 本次完成

@@ -1,0 +1,2 @@
+/* One-shot BLE name reset keymap. */
+#include "galpanel_win_ble_baseline.keymap"

@@ -26,3 +26,6 @@ include:
   - board: nice_nano//zmk
     shield: galpanel_win_ble_baseline
     artifact-name: galpanel-win-ble-baseline
+  - board: nice_nano//zmk
+    shield: galpanel_name_reset
+    artifact-name: galpanel-name-reset

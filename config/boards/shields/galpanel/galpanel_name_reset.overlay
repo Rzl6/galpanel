@@ -1,0 +1,2 @@
+/* Name reset uses the physical GALPANEL GPIO layout but no product logic. */
+#include "galpanel_win_ble_baseline.overlay"
