@@ -99,6 +99,14 @@
 - 烧录后盘符自动消失并完成重启；
 - 等待用户按 D8 一次执行 `BT_CLR_ALL`，随后烧录正式 `GALPANEL FULL`。
 
+### 正式固件烧录完成
+
+- 用户执行 D8 bond 清除后重新进入 Bootloader；
+- 已烧录正式 `galpanel.uf2`；
+- 正式固件 SHA-256：`49625D62E66C75ECA0ACF035568437FFC659CF4C3BEFBE534D3BEABA9FB43874`；
+- 烧录后 `NICENANO` 盘符自动消失并完成重启；
+- 下一步在 Windows 首次搜索正式固件广播名称（当前 Profile 对应 `GALPANEL N`），记录是否能连接。
+
 ### 关联提交
 
 待提交：`test: add upstream ZMK BLE isolation firmware`
