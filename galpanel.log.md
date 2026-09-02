@@ -53,6 +53,13 @@
 - 故障边界已从“电脑蓝牙整体异常”收窄到 GALPANEL 正式固件的 Profile、HID 描述符或自定义模块；
 - 待完成 D2→GND 输入 `A` 的最终 HID 验证。
 
+### BLE HID 最终验证
+
+- 用户确认上游 ZMK 固件配对后，D2→GND 可以在 Windows 输入 `A`；
+- 因此“上游 ZMK 只能配对但不能输入”的可能性排除；
+- 当前故障已确定属于 GALPANEL 正式固件配置或自定义模块，不再优先排查 Windows 蓝牙硬件；
+- 下一步采用固件二分：真实 GALPANEL GPIO + 标准 ZMK BLE 起步，再逐项加入 EC11、Profile 名称、状态灯和 SYS 自定义逻辑。
+
 ### 关联提交
 
 待提交：`test: add upstream ZMK BLE isolation firmware`
