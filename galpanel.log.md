@@ -45,7 +45,11 @@
 - 已重新进入 Bootloader 并烧录 BLE recovery；
 - BLE recovery SHA-256：`213EF8F489BFFC9FA8A15D43D46C30444BF36ED64F2D454E55ADDF9815B475F5`；
 - recovery 烧录后盘符自动消失并完成重启；
-- 下一步等待用户按 D7 选择 Profile 5、按 D14 清除该 Profile bond。
+- 用户已按 D7 选择 Profile 5、按 D14 清除该 Profile bond；
+- 重新进入 Bootloader 后已烧录历史 Run #3 `galpanel.uf2`；
+- Run #3 SHA-256：`6805B40DE4D7214ABE371D7DC0138B99BB5AB18E32165ED1B43DC92ED017F5E4`；
+- Run #3 烧录后盘符自动消失并完成重启；
+- 下一步先由 Windows 搜索并首次配对 `GALPANEL`，暂不让手机连接。
 
 ### 关联提交
 
