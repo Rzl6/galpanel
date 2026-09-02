@@ -32,6 +32,13 @@
 - 等待 GitHub Actions 构建 `official-zmk-ble-test.uf2`；
 - 构建成功后烧录并记录 Windows 与手机的对照结果。
 
+### 进度更新
+
+- GitHub Actions Run `33604222539` 构建成功；
+- `official-zmk-ble-test.uf2` SHA-256：`7ABED758B2FBCBD0DA80B9B9D1CEB5155B34FC967F6D0BD9D8EB2A3F073E012B`；
+- 已烧录上游 ZMK 独立 BLE 固件，盘符自动消失并完成重启；
+- 下一步按 D8 一次执行测试固件内置的 `BT_CLR_ALL`，然后在 Windows 搜索 `ZMK BLE TEST`。
+
 ### 关联提交
 
 待提交：`test: add upstream ZMK BLE isolation firmware`
