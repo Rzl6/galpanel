@@ -6,6 +6,44 @@
 
 ---
 
+## 2026-09-02 - 重新烧录历史 BLE 阶段通过固件
+
+### 本次完成
+
+- 从 Git 历史确认 `d24d7f6` 明确记录了 Windows 首次 BLE 配对和 D2 无线 Ctrl 输入通过；
+- 对比 `artifacts/firmware-run-1/galpanel.uf2` 与 `artifacts/firmware-run-3/galpanel.uf2`，确认两者 SHA-256 相同：`6805B40DE4D7214ABE371D7DC0138B99BB5AB18E32165ED1B43DC92ED017F5E4`；
+- 确认当前 Bootloader 为 `nRF52840-nicenano`；
+- 已重新烧录 `artifacts/firmware-run-3/galpanel.uf2`；
+- 烧录后 `NICENANO` 盘符自动消失，确认 UF2 已被接受并重启。
+
+### 为什么这么做
+
+用户要求回到以前明确通过蓝牙阶段性验证的版本。本轮选择有实物 Windows 配对和 BLE Ctrl 记录的 Run #1/Run #3，而不是最近加入 Profile 名称、状态灯和恢复逻辑的正式版本，减少配对测试变量。
+
+### 对后续的好处
+
+- 可用同一份历史镜像复现实物蓝牙基线；
+- 如果清空 Profile 后 Windows 仍失败，设备端应用逻辑基本不再是首要嫌疑；
+- 该镜像的 D2/D3/D4 测试键位简单，配对成功后可直接观察 HID 输入。
+
+### 本次验证
+
+- UF2 SHA-256 与历史记录一致；
+- 目标板 Board-ID 与 Bootloader 一致；
+- 烧录后盘符消失。
+
+### 尚未完成
+
+- 若要让 Windows 测试同一 Profile，需先用 BLE recovery 清除当前 Profile 5 中刚刚手机建立的 bond；
+- 清除后应先测试 Windows，不要先让手机重新连接；
+- 现有鼠标、键盘可暂时关机作为并发干扰对照，但它们不是“只能连接两个”的证明。
+
+### 关联提交
+
+待提交：`test: reflash historical BLE-passing firmware`
+
+---
+
 ## 2026-09-02 - 历史可用固件仍无法连接 Windows
 
 ### 本次完成
