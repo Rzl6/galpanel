@@ -84,6 +84,13 @@
 - 已烧录 `GALPANEL BLE MIN`，烧录后 `NICENANO` 盘符自动消失并完成重启；
 - 下一步按 D8 一次清除全部 bond，再在 Windows 测试 `GALPANEL MIN` 的首次连接与 D2/D3/D4/D5/D7/D14/D18/D19 输入。
 
+### 用户实测结果
+
+- 用户确认 `GALPANEL BLE MIN` 在 Windows “新设备”中成功连接；
+- 用户确认按键测试成功；
+- 因此 GALPANEL 的真实 GPIO overlay、最小 keymap 和标准 ZMK BLE HID 均通过；
+- 下一阶段可直接测试现有正式 `GALPANEL FULL`，重点观察自定义 Profile、状态/SYS、EC11 pointing 和睡眠配置是否重新引入连接失败。
+
 ### 关联提交
 
 待提交：`test: add upstream ZMK BLE isolation firmware`
