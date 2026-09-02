@@ -91,6 +91,14 @@
 - 因此 GALPANEL 的真实 GPIO overlay、最小 keymap 和标准 ZMK BLE HID 均通过；
 - 下一阶段可直接测试现有正式 `GALPANEL FULL`，重点观察自定义 Profile、状态/SYS、EC11 pointing 和睡眠配置是否重新引入连接失败。
 
+### 开始第二级正式固件测试
+
+- 用户已删除 Windows 端蓝牙设备并接入开发板；
+- 为同时清除设备端 `GALPANEL BLE MIN` bond，已烧录 BLE recovery 固件；
+- recovery SHA-256：`213EF8F489BFFC9FA8A15D43D46C30444BF36ED64F2D454E55ADDF9815B475F5`；
+- 烧录后盘符自动消失并完成重启；
+- 等待用户按 D8 一次执行 `BT_CLR_ALL`，随后烧录正式 `GALPANEL FULL`。
+
 ### 关联提交
 
 待提交：`test: add upstream ZMK BLE isolation firmware`
