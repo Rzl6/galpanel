@@ -37,6 +37,13 @@
 - 等待 GitHub Actions 构建 `galpanel-name-reset.uf2`；
 - 构建完成后按“名称重置 → Profile 5 清除 → Run #3”顺序烧录。
 
+### 进度更新
+
+- GitHub Actions Run `33602414742` 构建成功；
+- `galpanel-name-reset.uf2` SHA-256：`666969DF858EBB9BC3711E0520A486789B05162BF342D4149891F30670523559`；
+- 已烧录名称重置固件，盘符自动消失并完成重启；
+- 下一步等待 RST 进入 Bootloader，再烧录 BLE recovery 清除 Profile 5。
+
 ### 关联提交
 
 待提交：`feat: add historical BLE name reset firmware`
