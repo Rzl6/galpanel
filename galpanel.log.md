@@ -42,7 +42,10 @@
 - GitHub Actions Run `33602414742` 构建成功；
 - `galpanel-name-reset.uf2` SHA-256：`666969DF858EBB9BC3711E0520A486789B05162BF342D4149891F30670523559`；
 - 已烧录名称重置固件，盘符自动消失并完成重启；
-- 下一步等待 RST 进入 Bootloader，再烧录 BLE recovery 清除 Profile 5。
+- 已重新进入 Bootloader 并烧录 BLE recovery；
+- BLE recovery SHA-256：`213EF8F489BFFC9FA8A15D43D46C30444BF36ED64F2D454E55ADDF9815B475F5`；
+- recovery 烧录后盘符自动消失并完成重启；
+- 下一步等待用户按 D7 选择 Profile 5、按 D14 清除该 Profile bond。
 
 ### 关联提交
 
