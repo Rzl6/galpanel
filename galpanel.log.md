@@ -60,6 +60,14 @@
 - 当前故障已确定属于 GALPANEL 正式固件配置或自定义模块，不再优先排查 Windows 蓝牙硬件；
 - 下一步采用固件二分：真实 GALPANEL GPIO + 标准 ZMK BLE 起步，再逐项加入 EC11、Profile 名称、状态灯和 SYS 自定义逻辑。
 
+### 两级项目固件测试方案
+
+- 外部上游 ZMK BLE 测试已作为第 0 号基线并通过；
+- 项目内新增两级验证：`GALPANEL BLE MIN`（真实 GPIO + 标准 ZMK BLE，无 GALPANEL 自定义模块）和 `GALPANEL BLE FULL`（正式完整功能）；
+- MIN 失败表示 GALPANEL 硬件描述、keymap 或基础配置问题；
+- MIN 通过而 FULL 失败，表示 Profile 名称、状态灯、SYS、EC11 或其他自定义模块引入了连接问题；
+- 该方案只需一个新的最小固件，FULL 直接使用现有正式固件，避免无意义地复制多个近似镜像。
+
 ### 关联提交
 
 待提交：`test: add upstream ZMK BLE isolation firmware`
