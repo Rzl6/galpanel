@@ -114,6 +114,12 @@
 - 两级项目测试均通过：`GALPANEL BLE MIN` 与正式 `GALPANEL FULL` 都能在同一台 Windows 电脑上完成 BLE 连接；
 - 结合上游 ZMK 测试也已通过，之前的失败应归类为 Windows/配对状态的偶发流程问题，而不是 GALPANEL 固件功能缺陷。
 
+### 当前版本定位
+
+- 当前板上运行的是正式 `GALPANEL FULL` 构建产物，来自 GitHub Actions Run `33605328383`；
+- UF2 SHA-256：`49625D62E66C75ECA0ACF035568437FFC659CF4C3BEFBE534D3BEABA9FB43874`；
+- 该镜像可作为最终功能候选版；在断电重连、Profile/输出切换和电池/RF 条件完成前，不标记为最终发布版。
+
 ### 收尾回归建议
 
 - 断电再上电，验证已配对 Profile 自动重连；
