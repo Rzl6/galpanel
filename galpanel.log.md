@@ -46,6 +46,13 @@
 - 用户应连接该条目，配对后按 D2→GND，观察是否输入 `A`；
 - 此处更正先前“应显示 ZMK BLE TEST”的判断，该名称只能作为编译期默认值，不能覆盖已有持久化名称。
 
+### 关键结果
+
+- 用户确认当前上游 ZMK 最小 BLE 固件已在同一台 Windows 电脑上成功连接；
+- 这证明 Windows 蓝牙适配器/驱动、nRF52840 BLE 射频、SMP 配对和基础 BLE HID 服务均可工作；
+- 故障边界已从“电脑蓝牙整体异常”收窄到 GALPANEL 正式固件的 Profile、HID 描述符或自定义模块；
+- 待完成 D2→GND 输入 `A` 的最终 HID 验证。
+
 ### 关联提交
 
 待提交：`test: add upstream ZMK BLE isolation firmware`
