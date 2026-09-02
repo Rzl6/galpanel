@@ -107,6 +107,20 @@
 - 烧录后 `NICENANO` 盘符自动消失并完成重启；
 - 下一步在 Windows 首次搜索正式固件广播名称（当前 Profile 对应 `GALPANEL N`），记录是否能连接。
 
+### 正式固件实测结果
+
+- 用户确认 Windows 首次尝试时先显示“重新连接”，再次点击后成功连接 `GALPANEL 1`；
+- 正式固件按键、Profile 名称和其他功能均正常；
+- 两级项目测试均通过：`GALPANEL BLE MIN` 与正式 `GALPANEL FULL` 都能在同一台 Windows 电脑上完成 BLE 连接；
+- 结合上游 ZMK 测试也已通过，之前的失败应归类为 Windows/配对状态的偶发流程问题，而不是 GALPANEL 固件功能缺陷。
+
+### 收尾回归建议
+
+- 断电再上电，验证已配对 Profile 自动重连；
+- SYS 单击切换 Profile，确认名称和 INFO 闪烁对应；
+- SYS 双击切换 USB/BLE，观察 AUX；
+- 在 USB 与 BLE 间各测试一次 D2/D3/D4 和 EC11。
+
 ### 关联提交
 
 待提交：`test: add upstream ZMK BLE isolation firmware`
