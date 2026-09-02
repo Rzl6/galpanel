@@ -51,6 +51,12 @@
 - Run #3 烧录后盘符自动消失并完成重启；
 - 下一步先由 Windows 搜索并首次配对 `GALPANEL`，暂不让手机连接。
 
+### 用户反馈与解释
+
+- Windows 截图已显示设备名恢复为 `GALPANEL`，证明名称重置固件写入成功；
+- 用户反馈 Profile 5 清除时没有提示；这是当前 BLE recovery 固件的预期限制：其 overlay 关闭了五颗状态 LED，keymap 也没有蜂鸣器/显示反馈；
+- 按键映射仍为 D7=`BT_SEL 4`（选择 Profile 5）、D14=`BT_CLR`（清除当前 Profile），各按一次即可触发；但该镜像无法从外部确认动作是否真正触发。
+
 ### 关联提交
 
 待提交：`feat: add historical BLE name reset firmware`
