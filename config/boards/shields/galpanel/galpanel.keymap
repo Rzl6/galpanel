@@ -13,6 +13,11 @@
 #define ZMK_POINTING_DEFAULT_SCRL_VAL 100
 #include <dt-bindings/zmk/pointing.h>
 
+#define GP_MOVE_UP_LEFT     MOVE(-ZMK_POINTING_DEFAULT_MOVE_VAL, -ZMK_POINTING_DEFAULT_MOVE_VAL)
+#define GP_MOVE_UP_RIGHT    MOVE(ZMK_POINTING_DEFAULT_MOVE_VAL, -ZMK_POINTING_DEFAULT_MOVE_VAL)
+#define GP_MOVE_DOWN_RIGHT  MOVE(ZMK_POINTING_DEFAULT_MOVE_VAL, ZMK_POINTING_DEFAULT_MOVE_VAL)
+#define GP_MOVE_DOWN_LEFT   MOVE(-ZMK_POINTING_DEFAULT_MOVE_VAL, ZMK_POINTING_DEFAULT_MOVE_VAL)
+
 / {
     behaviors {
         /* SYS is handled by the status module so tap, double-tap and the
@@ -50,11 +55,11 @@
                 &kp LCTRL
                 &kp ESC
                 &kp ENTER
-                &mmv MOVE_DOWN
-                &mmv MOVE_RIGHT
+                &mmv GP_MOVE_UP_RIGHT
+                &mmv GP_MOVE_DOWN_RIGHT
                 &td_sys
-                &mmv MOVE_UP
-                &mmv MOVE_LEFT
+                &mmv GP_MOVE_DOWN_LEFT
+                &mmv GP_MOVE_UP_LEFT
                 &kp LG(D)
             >;
 
