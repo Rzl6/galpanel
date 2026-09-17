@@ -29,8 +29,17 @@
 
 ### 待完成
 
-- 本地结构校验与 GitHub Actions 构建；
-- 烧录后实测四条对角轨迹、长按连续性、USB/BLE 和 SYS 回归。
+- 实测四条对角轨迹、长按连续性、USB/BLE 和 SYS 回归。
+
+### 构建与烧录结果
+
+- 代码提交：`daefe4c`（`feat: map side keys to diagonal pointer movement`）；
+- GitHub Actions Run：`35240573008`，正式目标与完整工作流均构建成功；
+- 正式 UF2：`artifacts/run-35240573008/galpanel.uf2`；
+- 文件长度：`411648` bytes；
+- SHA-256：`9D014DE664D94CB24DF7F42B9BD4ABBF1A11D51E94303533DC3AC0445E8AC596`；
+- 检测到 `E:\ NICENANO` 后已复制该 UF2；
+- 复制后 Bootloader 盘符自动消失，确认新版固件已接收并重启。
 
 ---
 
