@@ -32,15 +32,24 @@
 
 ### 待验证
 
-- GitHub Actions 构建通过并取得新正式 UF2；
 - USB、BLE 下分别验证四方向、长按连续移动和斜向双键；
 - 验证 D3 Esc、EC11 按压 Win+D、EC11 滚轮；
 - 验证 SYS 单击、双击、长按行为未回归；
 - 确认 FN 白灯始终熄灭。
 
+### 构建结果
+
+- 代码提交：`9c13526`（`feat: make side keys control pointer by default`）；
+- GitHub Actions Run：`35213887863`；
+- 正式 `galpanel` 与其余 11 套固件目标全部构建成功；
+- 新正式固件：`artifacts/run-35213887863/galpanel.uf2`；
+- 文件长度：`411648` bytes；
+- SHA-256：`AF2B480AD500898AFC9EA472E1722DAA222AFA3F190E7C04100DC9DB86B93A2F`。
+
 ### 关联提交
 
-待提交：`feat: make side keys control pointer by default`
+- `9c13526 feat: make side keys control pointer by default`
+- 构建记录提交：`docs: record default mouse mode build`
 
 ---
 
