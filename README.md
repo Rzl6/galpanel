@@ -1,71 +1,80 @@
+<div align="center">
+
 # GALPANEL
 
-GALPANEL 是一款基于 SuperMini/ProMicro nRF52840 的 GALGAME 专用 USB + BLE 双模控制器。
+基于 nRF52840 + ZMK 的 GALGAME USB/BLE 双模控制器
 
-本仓库同时保存硬件资料、项目认知和 ZMK 固件配置。当前软件阶段已经建立首版 ZMK 工程骨架，目标板为：
+[![Firmware](https://img.shields.io/badge/firmware-v2.1.1-2563eb?style=flat-square)](../../releases/tag/v2.1.1)
+[![Hardware](https://img.shields.io/badge/PCB-V2.1-f59e0b?style=flat-square)](PCB/)
+[![Build](https://github.com/Rzl6/galpanel/actions/workflows/build.yml/badge.svg)](https://github.com/Rzl6/galpanel/actions/workflows/build.yml)
 
-```text
-board:  nice_nano//zmk
-shield: galpanel
+![GALPANEL 实物图占位](docs/images/galpanel-photo-placeholder.svg)
+
+> 实物照片占位，后续替换为成品照片与演示 GIF。
+
+</div>
+
+## 项目概述
+
+GALPANEL 是一款围绕 GALGAME 操作设计的桌面控制器。项目覆盖 PCB、焊接、nRF52840 固件、USB/BLE HID、自动构建和实物验证，当前稳定版本为 `v2.1.1`。
+
+## 核心功能
+
+- USB HID + BLE HID 双模；
+- 5 个独立 BLE Profile：`GALPANEL 1`～`GALPANEL 5`；
+- 四个侧键按物理位置控制四条 45° 光标轨迹；
+- EC11 旋钮控制鼠标滚轮，按压执行 `Win+D`；
+- INFO、LINK、WARN、AUX 状态灯反馈；
+- SYS 单击切 Profile、双击切 USB/BLE、长按清除当前 bond；
+- GitHub Actions 自动生成正式与诊断 UF2。
+
+## v2.1.1 键位
+
+| 控件 | 功能 |
+|---|---|
+| D2 / D3 / D4 | Ctrl / Esc / Enter |
+| D18 左上 | 光标左上 45° 移动 |
+| D5 右上 | 光标右上 45° 移动 |
+| D7 右下 | 光标右下 45° 移动 |
+| D14 左下 | 光标左下 45° 移动 |
+| EC11 旋转 / 按压 | 鼠标滚轮 / Win+D |
+| D8 SYS | Profile、输出端点与 bond 管理 |
+
+## 技术实现
+
+```mermaid
+flowchart LR
+    IN[按键 / EC11] --> Z[Zephyr + ZMK]
+    Z --> USB[USB HID]
+    Z --> BLE[BLE HID × 5]
+    Z --> LED[状态灯模块]
+    CI[GitHub Actions] --> UF2[正式 / 诊断 UF2]
 ```
 
-## 从这里开始
+技术栈：nRF52840、Zephyr、ZMK、Devicetree、Kconfig、C、GitHub Actions。
 
-如果你有 STM32 + CubeMX + HAL 基础，但没有接触过 ZMK，建议按这个顺序阅读：
+关键调试成果：
 
-1. `项目认知.md`：先理解硬件和最终键位；
-2. `项目规划.md`：了解软件会分哪些阶段完成；
-3. `使用说明.md`：查看最终用户功能和操作方式；
-4. `学习日志.md`：建立 STM32 与 Zephyr/ZMK 的知识映射；
-5. `config/boards/shields/galpanel/galpanel.overlay`：看 GPIO 和 EC11；
-6. `config/boards/shields/galpanel/galpanel.keymap`：看按键行为；
-7. `galpanel.log.md`：查看每次具体改动和原因。
+- 修复测试 shield 错误命中正式 keymap；
+- 将 EC11 正确接入鼠标 HID，而不是键盘键值；
+- 修复滚轮脉冲短于 ZMK 更新周期导致的无响应；
+- 隔离并解决 Windows BLE bond、动态 Profile 名称与连接状态问题；
+- 实现单键同时输出 X/Y 位移的 45° 光标控制。
 
-## 当前软件能力
+## 下载与烧录
 
-首版配置已经描述：
+- `v2.1.0`：带 FN 层的原稳定版；
+- `v2.1.1`：45° 光标控制版，当前推荐。
 
-- 3 颗机械键；
-- 4 颗侧键；
-- SYS 按键；
-- EC11 旋转和按压；
-- 基础层和 Fn 层；
-- 鼠标滚轮、音量键、BLE Profile 和 USB/BLE 输出切换；
-- QSAVE、QLOAD、Win+D 的双击保护；
-- 5 路 LED 的硬件 GPIO 定义和正式状态指示；
-- AUX 蓝灯显示当前实际输出端点：亮为 USB，灭为 BLE 或尚未连接。
-- BLE Profile 广播名为 `GALPANEL 1`～`GALPANEL 5`；
+双击 RST，等待 `NICENANO` U 盘出现，将 Release 中的 UF2 复制进去即可。
 
-正式固件中 LINK 连接成功亮 30 秒后熄灭；INFO/FN 状态显示已接入。WARN 安全操作、Fn 超时退出和最终电池/RF 验收仍属于后续阶段。
+## 文档
 
-## 最省事的编译方式
+- [使用说明](使用说明.md)
+- [项目认知](项目认知.md)
+- [测试计划](测试计划.md)
+- [学习日志](学习日志.md)
+- [完整开发日志](galpanel.log.md)
+- [稳定版本记录](稳定版本备份.md)
 
-当前仓库已经配置 GitHub Actions。将仓库推送到 GitHub 后，每次 `push` 都会自动编译：
-
-1. 打开仓库的 `Actions` 页面；
-2. 进入最新的 `Build ZMK firmware`；
-3. 下载 `firmware` 构建产物；
-4. 双击两次 RST，使 SuperMini 出现 UF2 U 盘；
-5. 将 `galpanel.uf2` 复制进去；
-6. 先测试 USB，再测试 BLE。
-
-首次启用鼠标滚轮后，BLE HID 描述会发生变化，需要在 Windows 中删除旧配对并重新配对一次。
-
-## 本地检查
-
-```powershell
-powershell -ExecutionPolicy Bypass -File .\scripts\validate-project.ps1
-powershell -ExecutionPolicy Bypass -File .\scripts\check-environment.ps1
-```
-
-这两个脚本不会修改系统：第一个检查仓库结构和关键配置，第二个只显示当前电脑已经安装了哪些开发工具。
-
-## 开发纪律
-
-每次完成一轮工作后必须：
-
-1. 验证代码或文档；
-2. 更新 `galpanel.log.md`；
-3. 新增知识时更新 `学习日志.md`；
-4. 检查 `git diff` 和 `git status`；
-5. 创建内容明确的 Git 提交。
+![GALPANEL 演示占位](docs/images/galpanel-demo-placeholder.svg)

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="720" viewBox="0 0 1440 720">
+  <rect width="1440" height="720" rx="28" fill="#0f172a"/>
+  <rect x="48" y="48" width="1344" height="624" rx="20" fill="none" stroke="#475569" stroke-width="4" stroke-dasharray="16 12"/>
+  <text x="720" y="320" text-anchor="middle" fill="#f8fafc" font-family="Arial, sans-serif" font-size="72" font-weight="700">GALPANEL</text>
+  <text x="720" y="405" text-anchor="middle" fill="#94a3b8" font-family="Arial, sans-serif" font-size="32">实物照片占位 · 建议 2:1 横图</text>
+</svg>
