@@ -10,6 +10,7 @@ $requiredFiles = @(
     '学习日志.md',
     '测试计划.md',
     '稳定版本备份.md',
+    'VERSION',
     'build.yaml',
     '.github/workflows/build.yml',
     'config/west.yml',
