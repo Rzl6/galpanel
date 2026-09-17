@@ -46,6 +46,14 @@
 - 文件长度：`411648` bytes；
 - SHA-256：`AF2B480AD500898AFC9EA472E1722DAA222AFA3F190E7C04100DC9DB86B93A2F`。
 
+### 实物烧录
+
+- 2026-09-17 检测到开发板进入 `E:\`、卷标 `NICENANO` 的 UF2 Bootloader；
+- 烧录前再次核对正式 UF2 的 SHA-256，与构建记录一致；
+- 已复制 `artifacts/run-35213887863/galpanel.uf2`；
+- 复制后 `NICENANO` 盘符自动消失，确认 Bootloader 已接收文件并重启进入新版固件；
+- 下一步进行四方向、D3 Esc、EC11 按压 Win+D、滚轮和 SYS 回归测试。
+
 ### 关联提交
 
 - `9c13526 feat: make side keys control pointer by default`
