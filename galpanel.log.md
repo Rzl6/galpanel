@@ -6,7 +6,7 @@
 
 ---
 
-## 2026-09-18 - 精简项目首页并准备 GitHub Releases
+## 2026-09-17 - 精简项目首页并发布 GitHub Releases
 
 ### 本次完成
 
@@ -30,6 +30,8 @@
 - `v2.1.0` SHA-256：`49625D62E66C75ECA0ACF035568437FFC659CF4C3BEFBE534D3BEABA9FB43874`；
 - `v2.1.1` SHA-256：`9D014DE664D94CB24DF7F42B9BD4ABBF1A11D51E94303533DC3AC0445E8AC596`；
 - 下载文件的长度和哈希均与本地稳定备份一致。
+- GitHub 仓库简介已更新为 nRF52840 + ZMK 双模控制器的精简描述；
+- 已添加 `nrf52840`、`zmk`、`zephyr`、`bluetooth-low-energy`、`usb-hid`、`pcb` 等项目 Topics。
 
 ---
 
