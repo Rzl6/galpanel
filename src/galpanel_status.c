@@ -21,13 +21,10 @@
 #include <zmk/endpoints.h>
 #include <zmk/event_manager.h>
 #include <zmk/events/ble_active_profile_changed.h>
-#include <zmk/events/layer_state_changed.h>
 #include <zmk/events/position_state_changed.h>
-#include <zmk/keymap.h>
 
 LOG_MODULE_REGISTER(galpanel_status, CONFIG_ZMK_LOG_LEVEL);
 
-#define GALPANEL_FN_LAYER 1
 #define GALPANEL_SYS_POSITION 5
 #define GALPANEL_STATUS_PERIOD K_MSEC(150)
 #define GALPANEL_SAFETY_HOLD_MS 6000
@@ -67,7 +64,6 @@ static bool set_led(const struct gpio_dt_spec *led, bool on) {
 
 static void write_status_leds(void) {
     const bool ble_connected = zmk_ble_active_profile_is_connected();
-    const bool fn_active = zmk_keymap_layer_active(GALPANEL_FN_LAYER);
     const bool usb_selected = zmk_endpoint_get_selected().transport == ZMK_TRANSPORT_USB;
 
     /* LINK is a BLE indicator. USB use is deliberately quiet; when BLE is
@@ -90,7 +86,8 @@ static void write_status_leds(void) {
         link_on = now < link_led_until;
     }
     set_led(&led_link, link_on);
-    set_led(&led_fn, fn_active);
+    /* The production keymap is now single-layer; keep the former FN LED off. */
+    set_led(&led_fn, false);
     set_led(&led_aux, usb_selected);
 
     /* INFO announces a profile with flashes. A successful bond clear has a
@@ -143,7 +140,6 @@ static int status_event_listener(const zmk_event_t *eh) {
 
 ZMK_LISTENER(galpanel_status, status_event_listener);
 ZMK_SUBSCRIPTION(galpanel_status, zmk_ble_active_profile_changed);
-ZMK_SUBSCRIPTION(galpanel_status, zmk_layer_state_changed);
 
 #if IS_ENABLED(CONFIG_GALPANEL_SAFETY_TEST)
 

@@ -9,6 +9,7 @@ $requiredFiles = @(
     'galpanel.log.md',
     '学习日志.md',
     '测试计划.md',
+    '稳定版本备份.md',
     'build.yaml',
     '.github/workflows/build.yml',
     'config/west.yml',
@@ -75,6 +76,12 @@ $checks = @(
     @{ File = 'config/boards/shields/galpanel/galpanel_led_ind_test.overlay'; Pattern = 'zmk,indicator-leds'; Name = 'LED indicator test mapping' }
     @{ File = 'config/boards/shields/galpanel/galpanel_io_test.keymap'; Pattern = '&kp N9'; Name = 'IO test nine-key map' }
     @{ File = 'config/boards/shields/galpanel/galpanel_ec11_test.keymap'; Pattern = 'sensor-bindings'; Name = 'EC11 test sensor binding' },
+    @{ File = 'config/boards/shields/galpanel/galpanel.keymap'; Pattern = '#include <behaviors/mouse_move.dtsi>'; Name = 'production mouse movement behavior' },
+    @{ File = 'config/boards/shields/galpanel/galpanel.keymap'; Pattern = '&mmv MOVE_DOWN'; Name = 'upper-right side key moves pointer down' },
+    @{ File = 'config/boards/shields/galpanel/galpanel.keymap'; Pattern = '&mmv MOVE_RIGHT'; Name = 'lower-right side key moves pointer right' },
+    @{ File = 'config/boards/shields/galpanel/galpanel.keymap'; Pattern = '&mmv MOVE_UP'; Name = 'lower-left side key moves pointer up' },
+    @{ File = 'config/boards/shields/galpanel/galpanel.keymap'; Pattern = '&mmv MOVE_LEFT'; Name = 'upper-left side key moves pointer left' },
+    @{ File = 'config/boards/shields/galpanel/galpanel.keymap'; Pattern = '&kp LG(D)'; Name = 'EC11 press returns to desktop' },
     @{ File = 'config/galpanel_led_ind_test.keymap'; Pattern = 'galpanel_led_ind_test.keymap'; Name = 'LED test root keymap override' },
     @{ File = 'config/galpanel_io_test.keymap'; Pattern = 'galpanel_io_test.keymap'; Name = 'IO test root keymap override' },
     @{ File = 'config/galpanel_ec11_test.keymap'; Pattern = 'galpanel_ec11_test.keymap'; Name = 'EC11 test root keymap override' },

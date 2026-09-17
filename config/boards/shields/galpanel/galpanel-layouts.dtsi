@@ -13,7 +13,8 @@
 
         /*
          * Logical order matches kscan input-gpios and the keymap:
-         * FAST, AUTO, NEXT, QSAVE, DESKTOP, SYS, FN, QLOAD, ENC_SW.
+         * FAST, MIDDLE, NEXT, UPPER_RIGHT, LOWER_RIGHT, SYS,
+         * LOWER_LEFT, UPPER_LEFT, ENC_SW.
          * Coordinates are documentation/UI hints rather than PCB dimensions.
          */
         keys
@@ -29,4 +30,3 @@
             ;
     };
 };
-
